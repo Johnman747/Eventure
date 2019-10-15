@@ -4,11 +4,11 @@ import LogOutButton from '../LogOutButton/LogOutButton';
 
 // this could also be written with destructuring parameters as:
 // const UserPage = ({ user }) => (
-// and then instead of `props.user.username` you could use `user.username`
+// and then instead of `props.user.name` you could use `user.name`
 const UserPage = (props) => (
   <div>
     <h1 id="welcome">
-      Welcome, { props.user.username }!
+      Welcome, { props.user.name }!
     </h1>
     <p>Your ID is: {props.user.id}</p>
     <LogOutButton className="log-in" />
