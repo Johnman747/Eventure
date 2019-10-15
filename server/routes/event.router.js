@@ -16,7 +16,15 @@ router.post('/addevent', (req,res)=>{
 })
 
 router.get('/private/:id', (req,res)=>{
-    const qureyText = `SELECT * FROM "events" WHERE  `
+    const qureyText = `SELECT * FROM "event" WHERE "event".host_id = $1;`;
+    pool.query(qureyText,[req.params.id])
+    .then((result)=>{
+        res.send(result.rows)
+    }).catch((err)=>{
+        console.log(err);
+        res.sendStatus(500);
+    })
+
 })
 
 

@@ -1,21 +1,38 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
+import { connect } from 'react-redux';
 
-// This is one of our simplest components
-// It doesn't have local state, so it can be a function component.
-// It doesn't dispatch any redux actions or display any part of redux state
-// or even care what the redux state is, so it doesn't need 'connect()'
+class PrivatePage extends Component {
 
-class PrivatePage extends Component{
-  render(){
-    return(
+  componentDidMount() {
+    this.getPrivateEvents();
+  }
+
+  getPrivateEvents = () => {
+    this.props.dispatch({ type: 'GET_EVENTS', payload: this.props.reduxState.user.id });
+  }
+  render() {
+    return (
       <div>
-      <p>
-        Private Events Page
-      </p>
-    </div>
+        <h1>
+          Private Events Page
+        </h1>
+        {this.props.reduxState.privateEvents.map((event) => {
+            return (
+              <div key={event.id}>
+                <h2>{event.event_name}</h2>
+                <p>{event.description}</p>
+              </div>
+            )
+          })}
+          {JSON.stringify(this.props.reduxState.privateEvents.data)}
+      </div>
     )
   }
 }
 
+const mapReduxStateToProps = (reduxState) => ({
+  reduxState
+});
 
-export default PrivatePage;
+// this allows us to use <App /> in index.js
+export default connect(mapReduxStateToProps)(PrivatePage);

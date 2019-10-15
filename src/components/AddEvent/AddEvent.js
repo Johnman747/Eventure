@@ -47,6 +47,7 @@ class AddEvent extends Component {
     handelAddEvent = (event) => {
         event.preventDefault();
         this.props.dispatch({type: 'ADD_EVENT', payload: this.state})
+        this.props.dispatch({ type: 'GET_EVENTS', payload: this.props.user.id });
         this.setState({
             event: {
                 eventName: '',
