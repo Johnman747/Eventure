@@ -27,5 +27,16 @@ router.get('/private/:id', (req,res)=>{
 
 })
 
+router.get('/single/:id', (req,res)=>{
+    const qureyText = `SELECT * FROM "event" WHERE "event".id = $1`
+    pool.query(qureyText,[req.params.id])
+    .then((result)=>{
+        res.send(result.rows)
+    }).catch((err)=>{
+        console.log.og(err)
+        res.sendStatus(500)
+    })
+})
+
 
 module.exports = router

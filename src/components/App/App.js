@@ -17,6 +17,7 @@ import PublicPage from '../Public/Public';
 import UserPage from '../UserPage/UserPage';
 import PrivatePage from '../PrivatePage/PrivatePage';
 import AddEvent from '../AddEvent/AddEvent';
+import EventPage from '../EventPage/Event'
 
 import './App.css';
 
@@ -39,6 +40,10 @@ class App extends Component {
               exact
               path="/public"
               component={PublicPage}
+            />
+            <Route 
+            path='/event/:id' 
+            render={({match})=><EventPage match={match}/>}
             />
             {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the UserPage if the user is logged in.

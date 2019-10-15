@@ -10,6 +10,11 @@ class PrivatePage extends Component {
   getPrivateEvents = () => {
     this.props.dispatch({ type: 'GET_EVENTS', payload: this.props.reduxState.user.id });
   }
+
+  moveToDetails = (id)=>{
+    this.props.dispatch({type: "GET_SINGLE_EVENT", payload: id})
+    this.props.history.push(`/event/${id}`)
+  }
   render() {
     return (
       <div>
@@ -18,13 +23,12 @@ class PrivatePage extends Component {
         </h1>
         {this.props.reduxState.privateEvents.map((event) => {
             return (
-              <div key={event.id}>
+              <div key={event.id} onClick={()=>this.moveToDetails(event.id)}>
                 <h2>{event.event_name}</h2>
                 <p>{event.description}</p>
               </div>
             )
           })}
-          {JSON.stringify(this.props.reduxState.privateEvents.data)}
       </div>
     )
   }
