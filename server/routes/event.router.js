@@ -38,5 +38,17 @@ router.get('/single/:id', (req,res)=>{
     })
 })
 
+router.put('/update', (req,res)=>{
+    const qureyText = `UPDATE "event" SET "event_name" = $1, "description" = $2,"street" = $3, "apt" = $4,"city" = $5,"state" = $6, "zip_code" = $7 WHERE "id" = $8;`
+    const event = req.body.event
+    pool.query(qureyText,[event.eventName, event.description, event.street, event.apt, event.city, event.state, event.zip, event.id])
+    .then((result)=>{
+        res.sendStatus(200)
+    }).catch((err)=>{
+        console.log(err)
+        res.sendStatus(500);
+    })
+})
+
 
 module.exports = router

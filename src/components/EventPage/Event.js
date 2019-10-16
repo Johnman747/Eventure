@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom'
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import GeoCode from "react-geocode"
 
@@ -15,7 +16,8 @@ class EventPage extends Component {
         location: {
             lat: 0,
             lng: 0
-        }
+        },
+        eventID: ''
     }
 
     componentDidMount() {
@@ -35,11 +37,13 @@ class EventPage extends Component {
                     city: event.city,
                     state: event.state,
                     zipCode: event.zip_code
-                }
+                },
+                eventID: event.id
             })
         })
-        console.log(this.state)
-        this.getLatAndLng()
+        console.log(this.state);
+        
+        // this.getLatAndLng()
     }
 
     getLatAndLng = ()=>{
@@ -55,7 +59,6 @@ class EventPage extends Component {
         } else {
             address = this.state.newLocation
         }
-        console.log(JSON.stringify(address));
         GeoCode.setApiKey(process.env.REACT_APP_API_KEY)
         GeoCode.fromAddress(
             JSON.stringify(address)
@@ -74,7 +77,10 @@ class EventPage extends Component {
                     console.error(error);
                 }
             );
-        console.log(this.state.newLocation)
+    }
+
+    editBtn = ()=>{
+        this.props.history.push(`/editevent/${this.props.match.params.id}`)
     }
 
     render() {
@@ -95,14 +101,14 @@ class EventPage extends Component {
                 })}
                 <LoadScript
                     id="script-loader"
-                    googleMapsApiKey={process.env.REACT_APP_API_KEY}
+                    // googleMapsApiKey={process.env.REACT_APP_API_KEY}
                     onLoad={this.setDetails}
                 >
                     <GoogleMap
                         className="example-map"
                         mapContainerStyle={{
-                            height: "400px",
-                            width: "400px"
+                            height: "300px",
+                            width: "300px"
                         }}
                         zoom={15}
                         center={{
@@ -119,6 +125,8 @@ class EventPage extends Component {
                         </Marker>
                     </GoogleMap>
                 </LoadScript>
+                <button onClick={this.editBtn}>Edit</button>
+                <button>Delete</button>
             </>
         )
     }
@@ -128,4 +136,4 @@ const mapReduxStateToProps = (reduxState) => ({
     reduxState
 });
 
-export default connect(mapReduxStateToProps)(EventPage);
+export default withRouter(connect(mapReduxStateToProps)(EventPage));

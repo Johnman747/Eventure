@@ -27,10 +27,19 @@ function* getSingleEvent(action){
     }
 }
 
+function* updateEvent(action){
+    try{
+        yield axios.put('/api/event/update', action.payload)
+    }catch(err){
+        console.log(err);
+    }
+}
+
 function* eventSaga(){
     yield takeEvery('ADD_EVENT', addEvent);
     yield takeEvery('GET_EVENTS', getEvents);
     yield takeEvery('GET_SINGLE_EVENT', getSingleEvent);
+    yield takeEvery('UPDATE_EVENT', updateEvent);
 }
 
 export default eventSaga
