@@ -29,7 +29,7 @@ class EventPage extends Component {
     }
 
     setDetails = () => {
-        this.props.reduxState.singleEvent.forEach((event)=>{
+        this.props.reduxState.singleEvent.forEach((event) => {
             this.setState({
                 newLocation: {
                     street: event.street,
@@ -42,11 +42,11 @@ class EventPage extends Component {
             })
         })
         console.log(this.state);
-        
+
         // this.getLatAndLng()
     }
 
-    getLatAndLng = ()=>{
+    getLatAndLng = () => {
         let address;
         if (this.state.newLocation.apt === '') {
             address = {
@@ -79,17 +79,17 @@ class EventPage extends Component {
             );
     }
 
-    editBtn = ()=>{
+    editBtn = () => {
         this.props.history.push(`/editevent/${this.props.match.params.id}`)
     }
 
-    deleteBtn = ()=>{
+    deleteBtn = () => {
         // let deleteConfirm = confirm("Are you sure you want to delete?");
-        // if(deleteConfirm === true){
-            this.props.dispatch({type:"DELETE_EVENT", payload: this.state.eventID})
+        if (window.confirm("Are you sure you want to delete?")) {
+            this.props.dispatch({ type: "DELETE_EVENT", payload: this.state.eventID })
             this.props.dispatch({ type: 'GET_EVENTS', payload: this.props.reduxState.user.id });
             this.props.history.push('/private');
-            // }
+        }
     }
 
     render() {
@@ -135,7 +135,7 @@ class EventPage extends Component {
                     </GoogleMap>
                 </LoadScript>
                 <button onClick={this.editBtn}>Edit</button>
-                <button onClick={()=>this.deleteBtn()}>Delete</button>
+                <button onClick={() => this.deleteBtn()}>Delete</button>
             </>
         )
     }
