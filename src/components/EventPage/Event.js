@@ -83,6 +83,15 @@ class EventPage extends Component {
         this.props.history.push(`/editevent/${this.props.match.params.id}`)
     }
 
+    deleteBtn = ()=>{
+        // let deleteConfirm = confirm("Are you sure you want to delete?");
+        // if(deleteConfirm === true){
+            this.props.dispatch({type:"DELETE_EVENT", payload: this.state.eventID})
+            this.props.dispatch({ type: 'GET_EVENTS', payload: this.props.reduxState.user.id });
+            this.props.history.push('/private');
+            // }
+    }
+
     render() {
         return (
             <>
@@ -126,7 +135,7 @@ class EventPage extends Component {
                     </GoogleMap>
                 </LoadScript>
                 <button onClick={this.editBtn}>Edit</button>
-                <button>Delete</button>
+                <button onClick={()=>this.deleteBtn()}>Delete</button>
             </>
         )
     }

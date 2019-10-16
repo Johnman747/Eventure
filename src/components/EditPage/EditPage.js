@@ -23,7 +23,12 @@ class EditEvent extends Component {
 
     componentDidMount() {
         this.props.dispatch({ type: "GET_SINGLE_EVENT", payload: this.props.match.params.id })
-        this.getDetails()
+    }
+
+    componentDidUpdate(preProps){
+        if(this.props.reduxState.singleEvent !== preProps.reduxState.singleEvent){
+            this.getDetails()
+        }
     }
 
     getDetails = () => {
@@ -75,7 +80,6 @@ class EditEvent extends Component {
             }
         })
         this.props.history.push(`/event/${this.props.match.params.id}`)
-        // console.log(this.state.event)
     }
 
     render() {

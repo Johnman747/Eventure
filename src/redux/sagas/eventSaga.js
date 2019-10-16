@@ -35,11 +35,20 @@ function* updateEvent(action){
     }
 }
 
+function* deleteEvent(action){
+    try{
+        yield axios.delete(`/api/event/${action.payload}`)
+    }catch(err){
+        console.log(err);
+    }
+}
+
 function* eventSaga(){
     yield takeEvery('ADD_EVENT', addEvent);
     yield takeEvery('GET_EVENTS', getEvents);
     yield takeEvery('GET_SINGLE_EVENT', getSingleEvent);
     yield takeEvery('UPDATE_EVENT', updateEvent);
+    yield takeEvery('DELETE_EVENT', deleteEvent);
 }
 
 export default eventSaga
