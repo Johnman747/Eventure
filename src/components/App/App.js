@@ -60,7 +60,7 @@ class App extends Component {
             <ProtectedRoute
             exact
             path="/addevent"
-            component={AddEvent}
+            render={({match})=><AddEvent match={match}/>}
             />
             <ProtectedRoute
               exact

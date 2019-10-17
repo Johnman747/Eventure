@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom'
 import "./AddEvent.css"
 
 class AddEvent extends Component {
@@ -15,10 +16,11 @@ class AddEvent extends Component {
             zip: '',
             public: false,
         },
-        guestList: {
+        addGuestList: {
             name: '',
             email: ''
-        }
+        },
+        list: []
     }
 
     handelChange = (e, propertyName) => {
@@ -30,10 +32,10 @@ class AddEvent extends Component {
         })
     }
 
-    makePublic = ()=>{
+    makePublic = () => {
         let check = !this.state.event.public
         this.setState({
-            event:{
+            event: {
                 ...this.state.event,
                 public: check
             }
@@ -41,7 +43,7 @@ class AddEvent extends Component {
         console.log(this.state.event.puclic)
     }
 
-    setEvent = ()=>{
+    setEvent = () => {
         this.setState({
             event: {
                 eventName: 'Johns Party',
@@ -58,7 +60,7 @@ class AddEvent extends Component {
 
     handelAddEvent = (event) => {
         event.preventDefault();
-        this.props.dispatch({type: 'ADD_EVENT', payload: this.state})
+        this.props.dispatch({ type: 'ADD_EVENT', payload: this.state })
         this.props.dispatch({ type: 'GET_EVENTS', payload: this.props.user.id });
         this.setState({
             event: {
@@ -71,10 +73,30 @@ class AddEvent extends Component {
                 state: '',
                 zip: '',
                 public: false
-            }
+            },
+            list: [],
         })
         this.props.history.push('/private')
         // console.log(this.state.event)
+    }
+
+    addGuestToList = (e, propertyName) => {
+        this.setState({
+            addGuestList: {
+                ...this.state.addGuestList,
+                [propertyName]: e.target.value
+            }
+        })
+    }
+
+    addGuest = () => {
+        this.state.list.push(this.state.addGuestList);
+        this.setState({
+            addGuest: {
+                name: ``,
+                email: ``
+            }
+        })
     }
 
     render() {
@@ -87,11 +109,11 @@ class AddEvent extends Component {
                     <h4>Description</h4>
                     <textarea value={this.state.event.description} rows="5" onChange={(e) => this.handelChange(e, "description")} />
                     <h4>Add Guests</h4>
-                    <input />
+                    <input value={this.state.addGuestList.name} onChange={(e) => { this.addGuestToList(e, "name") }} />
                     <br />
-                    <input />
+                    <input value={this.state.addGuestList.email} onChange={(e) => { this.addGuestToList(e, "email") }} />
                     <br />
-                    <button>Add Guest</button>
+                    <button onClick={this.addGuest}>Add Guest</button>
                 </div>
                 <div className="guestList">
                     <h4>Guests:</h4>
@@ -103,10 +125,14 @@ class AddEvent extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Jon Doe</td>
-                                <td>jon.doe@email.com</td>
-                            </tr>
+                            {this.state.list.map((person, i) => {
+                                return (
+                                    <tr key={i}>
+                                        <td>{person.name}</td>
+                                        <td>{person.email}</td>
+                                    </tr>
+                                )
+                            })}
                         </tbody>
                     </table>
                 </div>
@@ -127,8 +153,8 @@ class AddEvent extends Component {
                     <label>Zip Code:</label>
                     <input value={this.state.event.zip} onChange={(e) => this.handelChange(e, "zip")} />
                 </div>
-                <br/>
-                <input type="checkbox" onClick={this.makePublic}  /><label>Make Public</label>
+                <br />
+                <input type="checkbox" onClick={this.makePublic} /><label>Make Public</label>
                 <br />
                 <button onClick={this.handelAddEvent}>Add Event</button>
             </div>
@@ -140,4 +166,4 @@ const mapStateToProps = state => ({
 });
 
 // this allows us to use <App /> in index.js
-export default connect(mapStateToProps)(AddEvent);
+export default withRouter(connect(mapStateToProps)(AddEvent));

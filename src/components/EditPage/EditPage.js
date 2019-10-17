@@ -23,10 +23,11 @@ class EditEvent extends Component {
 
     componentDidMount() {
         this.props.dispatch({ type: "GET_SINGLE_EVENT", payload: this.props.match.params.id })
+        this.props.dispatch({ type: 'GET_LIST', payload: this.props.match.params.id })
     }
 
-    componentDidUpdate(preProps){
-        if(this.props.reduxState.singleEvent !== preProps.reduxState.singleEvent){
+    componentDidUpdate(preProps) {
+        if (this.props.reduxState.singleEvent !== preProps.reduxState.singleEvent) {
             this.getDetails()
         }
     }
@@ -99,7 +100,7 @@ class EditEvent extends Component {
                     <button>Add Guest</button>
                 </div>
                 <div className="guestList">
-                    <h4>Guests:</h4>
+                    <h3>Invited List:</h3>
                     <table>
                         <thead>
                             <tr>
@@ -108,10 +109,14 @@ class EditEvent extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                            <tr>
-                                <td>Jon Doe</td>
-                                <td>jon.doe@email.com</td>
-                            </tr>
+                            {this.props.reduxState.list.map((person) => {
+                                return (
+                                    <tr key={person.id}>
+                                        <td>{person.name}</td>
+                                        <td>{person.email}</td>
+                                    </tr>
+                                )
+                            })}
                         </tbody>
                     </table>
                 </div>

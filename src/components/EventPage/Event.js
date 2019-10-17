@@ -24,14 +24,9 @@ class EventPage extends Component {
         this.getDetails();
     }
 
-    // componentDidUpdate(preProps){
-    //     if(this.props.reduxState.singleEvent !== preProps.reduxState.singleEvent){
-    //         this.setDetails()
-    //     }
-    // }
-
     getDetails = () => {
         this.props.dispatch({ type: "GET_SINGLE_EVENT", payload: this.props.match.params.id })
+        this.props.dispatch({type: 'GET_LIST', payload: this.props.match.params.id})
     }
 
     setDetails = () => {
@@ -65,7 +60,7 @@ class EventPage extends Component {
         } else {
             address = this.state.newLocation
         }
-        GeoCode.setApiKey(process.env.REACT_APP_API_KEY)
+        // GeoCode.setApiKey(process.env.REACT_APP_API_KEY)
         GeoCode.fromAddress(
             JSON.stringify(address)
         )
@@ -113,9 +108,28 @@ class EventPage extends Component {
                         </div>
                     )
                 })}
+                <h3>Invited List:</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Name</th>
+                            <th>Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                    {this.props.reduxState.list.map((person)=>{
+                        return(
+                            <tr key={person.id}>
+                                <td>{person.name}</td>
+                                <td>{person.email}</td>
+                            </tr>
+                        )
+                    })}
+                    </tbody>
+                </table>
                 <LoadScript
                     id="script-loader"
-                    googleMapsApiKey={process.env.REACT_APP_API_KEY}
+                    // googleMapsApiKey={process.env.REACT_APP_API_KEY}
                     onLoad={this.setDetails}
                 >
                     <GoogleMap

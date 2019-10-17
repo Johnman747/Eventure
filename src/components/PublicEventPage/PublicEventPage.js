@@ -24,11 +24,11 @@ class PublicEventPage extends Component {
         this.getDetails();
     }
 
-    // componentDidUpdate(preProps){
-    //     if(this.props.reduxState.singleEvent !== preProps.reduxState.singleEvent){
-    //         this.setDetails()
-    //     }
-    // }
+    componentDidUpdate(preProps){
+        if(this.props.reduxState.singleEvent !== preProps.reduxState.singleEvent){
+            this.setDetails();
+        }
+    }
 
     getDetails = () => {
         this.props.dispatch({ type: "GET_SINGLE_EVENT", payload: this.props.match.params.id })
@@ -65,7 +65,7 @@ class PublicEventPage extends Component {
         } else {
             address = this.state.newLocation
         }
-        GeoCode.setApiKey(process.env.REACT_APP_API_KEY)
+        // GeoCode.setApiKey(process.env.REACT_APP_API_KEY)
         GeoCode.fromAddress(
             JSON.stringify(address)
         )
@@ -115,7 +115,7 @@ class PublicEventPage extends Component {
                 })}
                 <LoadScript
                     id="script-loader"
-                    googleMapsApiKey={process.env.REACT_APP_API_KEY}
+                    // googleMapsApiKey={process.env.REACT_APP_API_KEY}
                     onLoad={this.setDetails}
                 >
                     <GoogleMap
