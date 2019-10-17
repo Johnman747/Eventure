@@ -13,6 +13,7 @@ class AddEvent extends Component {
             city: '',
             state: '',
             zip: '',
+            public: false,
         },
         guestList: {
             name: '',
@@ -27,6 +28,17 @@ class AddEvent extends Component {
                 [propertyName]: e.target.value
             }
         })
+    }
+
+    makePublic = ()=>{
+        let check = !this.state.event.public
+        this.setState({
+            event:{
+                ...this.state.event,
+                public: check
+            }
+        })
+        console.log(this.state.event.puclic)
     }
 
     setEvent = ()=>{
@@ -58,6 +70,7 @@ class AddEvent extends Component {
                 city: '',
                 state: '',
                 zip: '',
+                public: false
             }
         })
         this.props.history.push('/private')
@@ -114,6 +127,8 @@ class AddEvent extends Component {
                     <label>Zip Code:</label>
                     <input value={this.state.event.zip} onChange={(e) => this.handelChange(e, "zip")} />
                 </div>
+                <br/>
+                <input type="checkbox" onClick={this.makePublic}  /><label>Make Public</label>
                 <br />
                 <button onClick={this.handelAddEvent}>Add Event</button>
             </div>

@@ -24,6 +24,12 @@ class EventPage extends Component {
         this.getDetails();
     }
 
+    // componentDidUpdate(preProps){
+    //     if(this.props.reduxState.singleEvent !== preProps.reduxState.singleEvent){
+    //         this.setDetails()
+    //     }
+    // }
+
     getDetails = () => {
         this.props.dispatch({ type: "GET_SINGLE_EVENT", payload: this.props.match.params.id })
     }
@@ -41,9 +47,9 @@ class EventPage extends Component {
                 eventID: event.id
             })
         })
-        console.log(this.state);
+        // console.log(this.state);
 
-        // this.getLatAndLng()
+        this.getLatAndLng()
     }
 
     getLatAndLng = () => {
@@ -84,7 +90,6 @@ class EventPage extends Component {
     }
 
     deleteBtn = () => {
-        // let deleteConfirm = confirm("Are you sure you want to delete?");
         if (window.confirm("Are you sure you want to delete?")) {
             this.props.dispatch({ type: "DELETE_EVENT", payload: this.state.eventID })
             this.props.dispatch({ type: 'GET_EVENTS', payload: this.props.reduxState.user.id });
@@ -110,7 +115,7 @@ class EventPage extends Component {
                 })}
                 <LoadScript
                     id="script-loader"
-                    // googleMapsApiKey={process.env.REACT_APP_API_KEY}
+                    googleMapsApiKey={process.env.REACT_APP_API_KEY}
                     onLoad={this.setDetails}
                 >
                     <GoogleMap
