@@ -2,8 +2,9 @@ import { combineReducers } from 'redux';
 import errors from './errorsReducer';
 import loginMode from './loginModeReducer';
 import user from './userReducer';
-import privateEvents from './eventsReducer'
-import singleEvent from './singleEvent'
+import privateEvents from './eventsReducer';
+import singleEvent from './singleEvent';
+import publicEvents from './PublicEvents';
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -17,6 +18,7 @@ const rootReducer = combineReducers({
   user, // will have an id and username if someone is logged in
   privateEvents, //will have the private events for the logged in person
   singleEvent, //Will Hold only one event that displays on dom
+  publicEvents,
 });
 
 export default rootReducer;

@@ -63,4 +63,15 @@ router.delete('/:id', (req,res)=>{
     })
 })
 
+router.get('/public', (req,res)=>{
+    const qureyText = `SELECT * FROM "event" WHERE "public" = 'TRUE'`;
+    pool.query(qureyText)
+    .then((result)=>{
+        res.send(result.rows)
+    }).catch((err)=>{
+        console.log(err)
+        res.sendStatus(500);
+    })
+})
+
 module.exports = router

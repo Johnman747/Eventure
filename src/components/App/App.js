@@ -18,7 +18,8 @@ import UserPage from '../UserPage/UserPage';
 import PrivatePage from '../PrivatePage/PrivatePage';
 import AddEvent from '../AddEvent/AddEvent';
 import EventPage from '../EventPage/Event';
-import EditEvent from '../EditPage/EditPage'
+import EditEvent from '../EditPage/EditPage';
+import PublicEventPage from '../PublicEventPage/PublicEventPage'
 
 import './App.css';
 
@@ -42,26 +43,30 @@ class App extends Component {
               path="/public"
               component={PublicPage}
             />
-            <Route 
-            path='/event/:id' 
-            render={({match})=><EventPage match={match}/>}
+            <Route
+              path='/event/:id'
+              render={({ match }) => <EventPage match={match} />}
             />
-            {/* For protected routes, the view could show one of several things on the same route.
+            <Route
+              path='/public/:id'
+              render={({ match }) => <PublicEventPage match={match} />}
+              />
+              {/* For protected routes, the view could show one of several things on the same route.
             Visiting localhost:3000/home will show the UserPage if the user is logged in.
             If the user is not logged in, the ProtectedRoute will show the 'Login' or 'Register' page.
             Even though it seems like they are different pages, the user is always on localhost:3000/home */}
-            {/* This works the same as the other protected route, except that if the user is logged in,
+              {/* This works the same as the other protected route, except that if the user is logged in,
             they will see the info page instead. */}
             <ProtectedRoute
             exact
             path="/addevent"
             component={AddEvent}
-             />
+            />
             <ProtectedRoute
-            exact
-            path="/editevent/:id"
-            render={({match})=><EditEvent match={match}/>}
-             />
+              exact
+              path="/editevent/:id"
+              render={({ match }) => <EditEvent match={match} />}
+            />
             <ProtectedRoute
               exact
               path="/private"

@@ -43,12 +43,22 @@ function* deleteEvent(action){
     }
 }
 
+function* publicEvents(action){
+    try{
+        const response = yield axios.get('/api/event/public');
+        yield put({type: 'SET_PUBLIC_EVENTS', payload: response.data});
+    }catch(err){
+        console.log(err);
+    }
+}
+
 function* eventSaga(){
     yield takeEvery('ADD_EVENT', addEvent);
     yield takeEvery('GET_EVENTS', getEvents);
     yield takeEvery('GET_SINGLE_EVENT', getSingleEvent);
     yield takeEvery('UPDATE_EVENT', updateEvent);
     yield takeEvery('DELETE_EVENT', deleteEvent);
+    yield takeEvery('GET_PUBLIC_EVENTS', publicEvents);
 }
 
 export default eventSaga
