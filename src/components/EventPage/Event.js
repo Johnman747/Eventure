@@ -29,7 +29,7 @@ class EventPage extends Component {
     }
 
     componentDidUpdate(preProps){
-        if(this.props.reduxState.attendingList !== preProps.reduxState.attendingList){
+        if(this.props.reduxState.attendingList.length !== preProps.reduxState.attendingList.length){
             this.setDetails();
         }
     }
@@ -117,6 +117,17 @@ class EventPage extends Component {
         console.log(this.state.eventID)
         this.props.dispatch({type:'ADD_ATTENDING', payload: {id: this.props.match.params.id, person: this.state.attending}})
         this.getDetails();
+        this.setState({
+            attending: {
+                name: '',
+                bringing: '',
+            }
+        })
+    }
+
+    deletePerson = (id)=>{
+        this.props.dispatch({type: "DELETE_ATTENDING", payload: id});
+        this.getDetails();
     }
 
     render() {
@@ -174,6 +185,7 @@ class EventPage extends Component {
                                     <tr key={person.id}>
                                         <td>{person.name}</td>
                                         <td>{person.item}</td>
+                                        <td><button onClick={() => this.deletePerson(person.id)}>Delete</button></td>
                                     </tr>
                                 )
                             })}

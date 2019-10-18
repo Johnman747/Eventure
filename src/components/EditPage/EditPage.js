@@ -31,9 +31,8 @@ class EditEvent extends Component {
         if (this.props.reduxState.singleEvent !== preProps.reduxState.singleEvent) {
             this.getDetails()
         }
-        if (this.props.reduxState.list !== preProps.reduxState.list) {
-            this.getDetails();
-
+        if (this.props.reduxState.list.length !== preProps.reduxState.list.length) {
+            this.fetchDetails()
         }
     }
 

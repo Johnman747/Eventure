@@ -7,6 +7,12 @@ class PrivatePage extends Component {
     this.getPrivateEvents();
   }
 
+  componentDidUpdate(preProps){
+    if(this.props.reduxState.privateEvents.length !== preProps.reduxState.privateEvents.length){
+      this.getPrivateEvents();
+    }
+  }
+
   getPrivateEvents = () => {
     this.props.dispatch({ type: 'GET_EVENTS', payload: this.props.reduxState.user.id });
   }

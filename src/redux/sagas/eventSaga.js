@@ -92,6 +92,14 @@ function* getAttending(action){
         console.log(err);
     }
 }
+ 
+function* deleteAttending(action){
+    try{
+        yield axios.delete(`/api/event/deleteAttending/${action.payload}`)
+    }catch(err){
+        console.log(err)
+    }
+}
 
 function* eventSaga() {
     yield takeEvery('ADD_EVENT', addEvent);
@@ -105,6 +113,7 @@ function* eventSaga() {
     yield takeEvery('ADD_GUEST', addGuest);
     yield takeEvery('ADD_ATTENDING', addAttending);
     yield takeEvery('GET_ATTENDING', getAttending);
+    yield takeEvery('DELETE_ATTENDING', deleteAttending);
 }
 
 export default eventSaga
