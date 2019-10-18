@@ -77,6 +77,22 @@ function* addGuest(action){
     }
 }
 
+function* addAttending(action){
+    try{
+        yield axios.post('/api/event/addAttending', action.payload)
+    }catch(err){
+        console.log(err);
+    }
+}
+function* getAttending(action){
+    try{
+        const response = yield axios.get(`/api/event/getAttending/${action.payload}`)
+        yield put({type: 'SET_STTENDING', payload: response.data})
+    }catch(err){
+        console.log(err);
+    }
+}
+
 function* eventSaga() {
     yield takeEvery('ADD_EVENT', addEvent);
     yield takeEvery('GET_EVENTS', getEvents);
@@ -87,6 +103,8 @@ function* eventSaga() {
     yield takeEvery('GET_LIST', getList);
     yield takeEvery('DELETE_PERSON_INVITED', deletePersonInvited);
     yield takeEvery('ADD_GUEST', addGuest);
+    yield takeEvery('ADD_ATTENDING', addAttending);
+    yield takeEvery('GET_ATTENDING', getAttending);
 }
 
 export default eventSaga

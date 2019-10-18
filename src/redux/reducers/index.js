@@ -5,7 +5,8 @@ import user from './userReducer';
 import privateEvents from './eventsReducer';
 import singleEvent from './singleEvent';
 import publicEvents from './PublicEvents';
-import list from './guestListReducer'
+import list from './guestListReducer';
+import attendingList from './attendingList'
 
 // rootReducer is the primary reducer for our entire project
 // It bundles up all of the other reducers so our project can use them.
@@ -21,6 +22,7 @@ const rootReducer = combineReducers({
   singleEvent, //Will Hold only one event that displays on dom
   publicEvents,
   list,
+  attendingList
 });
 
 export default rootReducer;

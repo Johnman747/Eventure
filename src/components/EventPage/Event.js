@@ -28,9 +28,16 @@ class EventPage extends Component {
         this.getDetails();
     }
 
+    componentDidUpdate(preProps){
+        if(this.props.reduxState.attendingList !== preProps.reduxState.attendingList){
+            this.setDetails();
+        }
+    }
+
     getDetails = () => {
         this.props.dispatch({ type: "GET_SINGLE_EVENT", payload: this.props.match.params.id })
         this.props.dispatch({ type: 'GET_LIST', payload: this.props.match.params.id })
+        this.props.dispatch({ type: 'GET_ATTENDING', payload: this.props.match.params.id});
     }
 
     setDetails = () => {
@@ -108,6 +115,8 @@ class EventPage extends Component {
 
     rsvpBtn = ()=>{
         console.log(this.state.eventID)
+        this.props.dispatch({type:'ADD_ATTENDING', payload: {id: this.props.match.params.id, person: this.state.attending}})
+        this.getDetails();
     }
 
     render() {
@@ -160,7 +169,14 @@ class EventPage extends Component {
                             </tr>
                         </thead>
                         <tbody>
-                            {}
+                            {this.props.reduxState.attendingList.map((person)=>{
+                                return(
+                                    <tr key={person.id}>
+                                        <td>{person.name}</td>
+                                        <td>{person.item}</td>
+                                    </tr>
+                                )
+                            })}
                         </tbody>
                     </table>
                 </div>

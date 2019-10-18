@@ -127,5 +127,28 @@ router.post('/addGuest', (req,res)=>{
     })
 })
 
+router.post('/addAttending', (req,res)=>{
+    console.log(req.body)
+    const qureyText = `INSERT INTO "attending_list" ("event_id", "name", "item") VALUES ($1,$2,$3);`;
+    pool.query(qureyText,[req.body.id, req.body.person.name, req.body.person.bringing])
+    .then((result)=>{
+        res.sendStatus(200);
+    }).catch((err)=>{
+        console.log(err);
+        res.sendStatus(500);
+    })
+})
+
+router.get('/getAttending/:id', (req,res)=>{
+    const qureyText = `SELECT * FROM "attending_list" WHERE "event_id" = $1;`;
+    pool.query(qureyText,[req.params.id])
+    .then((result)=>{
+        res.send(result.rows)
+    }).catch((err)=>{
+        console.log(err);
+        res.sendStatus(500);
+    })
+})
+
 
 module.exports = router
