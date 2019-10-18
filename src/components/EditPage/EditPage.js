@@ -15,21 +15,31 @@ class EditEvent extends Component {
             state: '',
             zip: '',
         },
-        guestList: {
+        addGuestList: {
+            id: '',
             name: '',
             email: ''
-        }
+        },
+        list: []
     }
 
     componentDidMount() {
-        this.props.dispatch({ type: "GET_SINGLE_EVENT", payload: this.props.match.params.id })
-        this.props.dispatch({ type: 'GET_LIST', payload: this.props.match.params.id })
+        this.fetchDetails();
     }
 
     componentDidUpdate(preProps) {
         if (this.props.reduxState.singleEvent !== preProps.reduxState.singleEvent) {
             this.getDetails()
         }
+        if (this.props.reduxState.list !== preProps.reduxState.list) {
+            this.getDetails();
+
+        }
+    }
+
+    fetchDetails = () => {
+        this.props.dispatch({ type: "GET_SINGLE_EVENT", payload: this.props.match.params.id })
+        this.props.dispatch({ type: 'GET_LIST', payload: this.props.match.params.id })
     }
 
     getDetails = () => {
@@ -47,6 +57,9 @@ class EditEvent extends Component {
                     city: event.city,
                     state: event.state,
                     zip: event.zip_code,
+                },
+                addGuestList: {
+                    id: event.id
                 }
             })
         })
@@ -83,6 +96,31 @@ class EditEvent extends Component {
         this.props.history.push(`/event/${this.props.match.params.id}`)
     }
 
+    addGuestToList = (e, propertyName) => {
+        this.setState({
+            addGuestList: {
+                ...this.state.addGuestList,
+                [propertyName]: e.target.value
+            }
+        })
+    }
+
+    addGuest = () => {
+        this.props.dispatch({ type: 'ADD_GUEST', payload: this.state.addGuestList })
+        this.fetchDetails()
+        this.setState({
+            addGuestList: {
+                name: '',
+                email: ''
+            }
+        })
+    }
+
+    deletePerson = (id) => {
+        this.props.dispatch({ type: 'DELETE_PERSON_INVITED', payload: id })
+        this.fetchDetails()
+    }
+
     render() {
         return (
             <div className="addevent">
@@ -93,11 +131,11 @@ class EditEvent extends Component {
                     <h4>Description</h4>
                     <textarea value={this.state.event.description} rows="5" onChange={(e) => this.handelChange(e, "description")} />
                     <h4>Add Guests</h4>
-                    <input />
+                    <input value={this.state.addGuestList.name} onChange={(e) => this.addGuestToList(e, "name")} />
                     <br />
-                    <input />
+                    <input value={this.state.addGuestList.email} onChange={(e) => this.addGuestToList(e, "email")} />
                     <br />
-                    <button>Add Guest</button>
+                    <button onClick={this.addGuest}>Add Guest</button>
                 </div>
                 <div className="guestList">
                     <h3>Invited List:</h3>
@@ -114,6 +152,7 @@ class EditEvent extends Component {
                                     <tr key={person.id}>
                                         <td>{person.name}</td>
                                         <td>{person.email}</td>
+                                        <td><button onClick={() => this.deletePerson(person.id)}>Delete</button></td>
                                     </tr>
                                 )
                             })}

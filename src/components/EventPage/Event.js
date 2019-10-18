@@ -17,7 +17,11 @@ class EventPage extends Component {
             lat: 0,
             lng: 0
         },
-        eventID: ''
+        eventID: '',
+        attending: {
+            name: '',
+            bringing: '',
+        }
     }
 
     componentDidMount() {
@@ -26,7 +30,7 @@ class EventPage extends Component {
 
     getDetails = () => {
         this.props.dispatch({ type: "GET_SINGLE_EVENT", payload: this.props.match.params.id })
-        this.props.dispatch({type: 'GET_LIST', payload: this.props.match.params.id})
+        this.props.dispatch({ type: 'GET_LIST', payload: this.props.match.params.id })
     }
 
     setDetails = () => {
@@ -42,7 +46,7 @@ class EventPage extends Component {
                 eventID: event.id
             })
         })
-        // console.log(this.state);
+        console.log(this.state);
 
         this.getLatAndLng()
     }
@@ -92,6 +96,20 @@ class EventPage extends Component {
         }
     }
 
+    handelChange = (e, propertyName)=>{
+        this.setState({
+            attending:{
+                ...this.state.attending,
+                [propertyName]: e.target.value
+
+            }
+        })
+    }
+
+    rsvpBtn = ()=>{
+        console.log(this.state.eventID)
+    }
+
     render() {
         return (
             <>
@@ -100,6 +118,55 @@ class EventPage extends Component {
                         <div key={event.id}>
                             <h2>{event.event_name}</h2>
                             <p>{event.description}</p>
+                        </div>
+                    )
+                })}
+                <div>
+                    <h3>Invited List:</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Email</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {this.props.reduxState.list.map((person) => {
+                                return (
+                                    <tr key={person.id}>
+                                        <td>{person.name}</td>
+                                        <td>{person.email}</td>
+                                    </tr>
+                                )
+                            })}
+                        </tbody>
+                    </table>
+                </div>
+                <div>
+                    <h3>Are you able to make it?</h3>
+                    <label>Name:</label>
+                    <input value={this.state.attending.name} onChange={(e)=> this.handelChange(e,'name')}/>
+                    <br/>
+                    <label>Bringing</label>
+                    <input value={this.state.attending.bringing} onChange={(e)=> this.handelChange(e,'bringing')}/>
+                    <br/>
+                    <button onClick={this.rsvpBtn}>RSVP</button>
+                    <h3>Attending:</h3>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Bringing</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {}
+                        </tbody>
+                    </table>
+                </div>
+                {this.props.reduxState.singleEvent.map((event) => {
+                    return (
+                        <div key={event.id}>
                             <p>{event.street}</p>
                             <p>{event.apt}</p>
                             <p>{event.city}</p>
@@ -108,25 +175,6 @@ class EventPage extends Component {
                         </div>
                     )
                 })}
-                <h3>Invited List:</h3>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Name</th>
-                            <th>Email</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                    {this.props.reduxState.list.map((person)=>{
-                        return(
-                            <tr key={person.id}>
-                                <td>{person.name}</td>
-                                <td>{person.email}</td>
-                            </tr>
-                        )
-                    })}
-                    </tbody>
-                </table>
                 <LoadScript
                     id="script-loader"
                     // googleMapsApiKey={process.env.REACT_APP_API_KEY}

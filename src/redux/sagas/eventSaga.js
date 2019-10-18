@@ -61,6 +61,22 @@ function* getList(action) {
     }
 }
 
+function* deletePersonInvited(action){
+    try{
+        yield axios.delete(`/api/event/deleteInvited/${action.payload}`);
+    }catch(err){
+        console.log(err);
+    }
+}
+
+function* addGuest(action){
+    try{
+        yield axios.post('/api/event/addGuest', action.payload)
+    }catch(err){
+        console.log(action);
+    }
+}
+
 function* eventSaga() {
     yield takeEvery('ADD_EVENT', addEvent);
     yield takeEvery('GET_EVENTS', getEvents);
@@ -69,6 +85,8 @@ function* eventSaga() {
     yield takeEvery('DELETE_EVENT', deleteEvent);
     yield takeEvery('GET_PUBLIC_EVENTS', publicEvents);
     yield takeEvery('GET_LIST', getList);
+    yield takeEvery('DELETE_PERSON_INVITED', deletePersonInvited);
+    yield takeEvery('ADD_GUEST', addGuest);
 }
 
 export default eventSaga

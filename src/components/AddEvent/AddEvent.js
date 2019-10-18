@@ -92,9 +92,9 @@ class AddEvent extends Component {
     addGuest = () => {
         this.state.list.push(this.state.addGuestList);
         this.setState({
-            addGuest: {
-                name: ``,
-                email: ``
+            addGuestList: {
+                name: '',
+                email: ''
             }
         })
     }
