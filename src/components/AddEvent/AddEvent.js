@@ -62,6 +62,7 @@ class AddEvent extends Component {
         event.preventDefault();
         this.props.dispatch({ type: 'ADD_EVENT', payload: this.state })
         this.props.dispatch({ type: 'GET_EVENTS', payload: this.props.user.id });
+        this.props.dispatch({type: 'SEND_INVITES', payload: this.state.list});
         this.setState({
             event: {
                 eventName: '',

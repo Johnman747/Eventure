@@ -18,6 +18,7 @@ class EventPage extends Component {
             lng: 0
         },
         eventID: '',
+        hostid: '',
         attending: {
             name: '',
             bringing: '',
@@ -50,7 +51,8 @@ class EventPage extends Component {
                     state: event.state,
                     zipCode: event.zip_code
                 },
-                eventID: event.id
+                eventID: event.id,
+                hostid: event.host_id,
             })
         })
         console.log(this.state);
@@ -229,8 +231,15 @@ class EventPage extends Component {
                         </Marker>
                     </GoogleMap>
                 </LoadScript>
+                {this.props.reduxState.user.id === this.state.hostid?
+                <>
                 <button onClick={this.editBtn}>Edit</button>
                 <button onClick={() => this.deleteBtn()}>Delete</button>
+                </>
+                :
+                ''
+                }
+                
             </>
         )
     }
