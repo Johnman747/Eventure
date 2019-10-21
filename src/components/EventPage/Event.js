@@ -30,7 +30,7 @@ class EventPage extends Component {
 
     componentDidUpdate(preProps){
         if(this.props.reduxState.attendingList.length !== preProps.reduxState.attendingList.length){
-            this.setDetails();
+            this.getDetails();
         }
     }
 
@@ -71,7 +71,7 @@ class EventPage extends Component {
         } else {
             address = this.state.newLocation
         }
-        // GeoCode.setApiKey(process.env.REACT_APP_API_KEY)
+        GeoCode.setApiKey(process.env.REACT_APP_API_KEY)
         GeoCode.fromAddress(
             JSON.stringify(address)
         )
@@ -205,7 +205,7 @@ class EventPage extends Component {
                 })}
                 <LoadScript
                     id="script-loader"
-                    // googleMapsApiKey={process.env.REACT_APP_API_KEY}
+                    googleMapsApiKey={process.env.REACT_APP_API_KEY}
                     onLoad={this.setDetails}
                 >
                     <GoogleMap

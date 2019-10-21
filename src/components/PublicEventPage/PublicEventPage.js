@@ -65,7 +65,7 @@ class PublicEventPage extends Component {
         } else {
             address = this.state.newLocation
         }
-        // GeoCode.setApiKey(process.env.REACT_APP_API_KEY)
+        GeoCode.setApiKey(process.env.REACT_APP_API_KEY)
         GeoCode.fromAddress(
             JSON.stringify(address)
         )
@@ -115,7 +115,7 @@ class PublicEventPage extends Component {
                 })}
                 <LoadScript
                     id="script-loader"
-                    // googleMapsApiKey={process.env.REACT_APP_API_KEY}
+                    googleMapsApiKey={process.env.REACT_APP_API_KEY}
                     onLoad={this.setDetails}
                 >
                     <GoogleMap

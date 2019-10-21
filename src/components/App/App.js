@@ -19,7 +19,8 @@ import PrivatePage from '../PrivatePage/PrivatePage';
 import AddEvent from '../AddEvent/AddEvent';
 import EventPage from '../EventPage/Event';
 import EditEvent from '../EditPage/EditPage';
-import PublicEventPage from '../PublicEventPage/PublicEventPage'
+import PublicEventPage from '../PublicEventPage/PublicEventPage';
+import EditPublic from '../EditPublic/EditPublic';
 
 import './App.css';
 
@@ -42,6 +43,11 @@ class App extends Component {
               exact
               path="/public"
               component={PublicPage}
+            />
+            <Route 
+            exact
+            path="/publicEdit/:id"
+            render={({match})=><EditPublic match={match}/>}
             />
             <Route
               path='/event/:id'

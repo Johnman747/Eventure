@@ -15,6 +15,18 @@ class Public extends Component {
   publicEventPage = (id)=>{
     this.props.history.push(`/public/${id}`)
   }
+
+  handelEdit = (id)=>{
+    this.props.history.push(`/publicEdit/${id}`)
+  }
+
+  handelDelete = (id)=>{
+    if (window.confirm("Are you sure you want to delete?")) {
+      this.props.dispatch({ type: "DELETE_EVENT", payload: id})
+      this.props.dispatch({ type: 'GET_PUBLIC_EVENTS' })
+      this.props.history.push('/public');
+  }
+  }
   render() {
     return (
       <div>
@@ -24,9 +36,19 @@ class Public extends Component {
             </p>
           {this.props.reduxState.publicEvents.map((event) => {
             return (
-              <div key={event.id} onClick={()=>this.publicEventPage(event.id)}>
+              <div key={event.id} >
+                <div onClick={()=>this.publicEventPage(event.id)}>
                 <h2>{event.event_name}</h2>
                 <p>{event.description}</p>
+                </div>
+                {this.props.reduxState.user.admin_level === 1?
+                <>
+                <button onClick={()=>this.handelEdit(event.id)}>Edit</button>
+                <button onClick={()=>this.handelDelete(event.id)}>Delete</button>
+                </>
+                :
+                ""
+                }
               </div>
             )
           })}
