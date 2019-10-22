@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import {Input} from 'semantic-ui-react';
 
 class LoginPage extends Component {
   state = {
@@ -45,7 +46,7 @@ class LoginPage extends Component {
           <div>
             <label htmlFor="username">
               Email:
-              <input
+              <Input
                 type="text"
                 name="email"
                 value={this.state.email}
@@ -56,12 +57,13 @@ class LoginPage extends Component {
           <div>
             <label htmlFor="password">
               Password:
-              <input
+              <Input
                 type="password"
                 name="password"
                 value={this.state.password}
                 onChange={this.handleInputChangeFor('password')}
               />
+
             </label>
           </div>
           <div>

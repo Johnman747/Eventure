@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {Button, Card, Container, Grid  } from 'semantic-ui-react';
+import {Button, Card,Grid  } from 'semantic-ui-react';
 import './PrivatePage.css'
 
 class PrivatePage extends Component {

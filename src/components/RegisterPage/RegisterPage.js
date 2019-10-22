@@ -1,5 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import {Input} from "semantic-ui-react";
+import { withRouter } from 'react-router-dom'
 
 class RegisterPage extends Component {
   state = {
@@ -47,7 +49,7 @@ class RegisterPage extends Component {
           <div>
             <label htmlFor="name">
               Full Name:
-              <input
+              <Input
                 type="text"
                 name="fullname"
                 value={this.state.name}
@@ -58,7 +60,7 @@ class RegisterPage extends Component {
             <div>
             <label htmlFor="email">
               Email:
-              <input
+              <Input
                 type="text"
                 name="email"
                 value={this.state.username}
@@ -69,7 +71,7 @@ class RegisterPage extends Component {
           <div>
             <label htmlFor="password">
               Password:
-              <input
+              <Input
                 type="password"
                 name="password"
                 value={this.state.password}
@@ -107,5 +109,5 @@ const mapStateToProps = state => ({
   errors: state.errors,
 });
 
-export default connect(mapStateToProps)(RegisterPage);
+export default withRouter(connect(mapStateToProps)(RegisterPage));
 

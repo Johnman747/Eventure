@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 import LogOutButton from '../LogOutButton/LogOutButton';
 import './Nav.css';
+import name from '../Logo/logo-name.png'
+// import logo from '../Logo/Eventure.png'
 
 const Nav = (props) => (
   <div className="nav">
@@ -11,6 +13,9 @@ const Nav = (props) => (
       Public
       </Link>
     <div className="nav-right">
+      <div className="nav-middle">
+    <img className="headder-logo" src={name} alt="name" />
+    </div>
       {/* Show the link to the info page and the logout button if the user is logged in */}
       {props.user.id && (
         <>

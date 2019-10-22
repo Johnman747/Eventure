@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import GeoCode from "react-geocode"
+import { Grid } from 'semantic-ui-react'
 
 class PublicEventPage extends Component {
     state = {
@@ -24,8 +25,8 @@ class PublicEventPage extends Component {
         this.getDetails();
     }
 
-    componentDidUpdate(preProps){
-        if(this.props.reduxState.singleEvent !== preProps.reduxState.singleEvent){
+    componentDidUpdate(preProps) {
+        if (this.props.reduxState.singleEvent !== preProps.reduxState.singleEvent) {
             this.setDetails();
         }
     }
@@ -99,47 +100,61 @@ class PublicEventPage extends Component {
 
     render() {
         return (
-            <>
+            <div className="container">
                 {this.props.reduxState.singleEvent.map((event) => {
                     return (
                         <div key={event.id}>
                             <h2>{event.event_name}</h2>
                             <p>{event.description}</p>
-                            <p>{event.street}</p>
-                            <p>{event.apt}</p>
-                            <p>{event.city}</p>
-                            <p>{event.state}</p>
-                            <p>{event.zip_code}</p>
                         </div>
                     )
                 })}
-                <LoadScript
-                    id="script-loader"
-                    googleMapsApiKey={process.env.REACT_APP_API_KEY}
-                    onLoad={this.setDetails}
-                >
-                    <GoogleMap
-                        className="example-map"
-                        mapContainerStyle={{
-                            height: "300px",
-                            width: "300px"
-                        }}
-                        zoom={15}
-                        center={{
-                            lat: this.state.location.lat,
-                            lng: this.state.location.lng
-                        }}
-                    >
-                        <Marker
-                            position={{
-                                lat: this.state.location.lat,
-                                lng: this.state.location.lng
-                            }}
-                        >
-                        </Marker>
-                    </GoogleMap>
-                </LoadScript>
-            </>
+                <div className="address_map">
+                    <Grid stackable relaxed divided='vertically' columns='2'>
+                        <Grid.Row>
+                            <Grid.Column>
+                                <LoadScript
+                                    id="script-loader"
+                                    googleMapsApiKey={process.env.REACT_APP_API_KEY}
+                                    onLoad={this.setDetails}
+                                >
+                                    <GoogleMap
+                                        className="example-map"
+                                        mapContainerStyle={{
+                                            height: "300px",
+                                            width: "300px"
+                                        }}
+                                        zoom={15}
+                                        center={{
+                                            lat: this.state.location.lat,
+                                            lng: this.state.location.lng
+                                        }}
+                                    >
+                                        <Marker
+                                            position={{
+                                                lat: this.state.location.lat,
+                                                lng: this.state.location.lng
+                                            }}
+                                        >
+                                        </Marker>
+                                    </GoogleMap>
+                                </LoadScript>
+                            </Grid.Column>
+                            <Grid.Column>
+                                {this.props.reduxState.singleEvent.map((event) => {
+                                    return (
+                                        <div key={event.id}>
+                                            <p>{event.street} {event.apt}</p>
+                                            <p>{event.city},{event.state}</p>
+                                            <p>{event.zip_code}</p>
+                                        </div>
+                                    )
+                                })}
+                            </Grid.Column>
+                        </Grid.Row>
+                    </Grid>
+                </div>
+            </div>
         )
     }
 }

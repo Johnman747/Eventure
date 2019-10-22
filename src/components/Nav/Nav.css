@@ -8,13 +8,13 @@
 
 .nav {
   overflow: hidden;
-  background-color: #00acb0;
+  background-color: #023C40;
 }
 
 .nav-link {
   float: left;
   color: #f2f2f2;
-  background-color: #00acb0;
+  background-color: #023C40;
   text-align: center;
   padding: 24px 10px;
   text-decoration: none;
@@ -28,9 +28,20 @@
 }
 
 .nav-link:hover {
-  background-color: #008183;
+  background-color: #034b50;
 }
 
 .nav-right {
   float: right;
+}
+.nav-middle{
+  display: inline-block;
+  float: left;
+  margin: auto
+}
+
+.headder-logo {
+    height: 300px;
+    margin: -120px 0;
+    margin-right: 18vw;
 }

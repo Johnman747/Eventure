@@ -3,6 +3,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import GeoCode from "react-geocode"
+import { Table, Button, Input, Label, Grid } from 'semantic-ui-react';
+import './Event.css'
 
 class EventPage extends Component {
     state = {
@@ -29,16 +31,16 @@ class EventPage extends Component {
         this.getDetails();
     }
 
-    componentDidUpdate(preProps){
-        if(this.props.reduxState.attendingList.length !== preProps.reduxState.attendingList.length){
-            this.getDetails();
+    componentDidUpdate(preProps) {
+        if (this.props.reduxState.attendingList.length !== preProps.reduxState.attendingList.length) {
+            this.props.dispatch({ type: 'GET_ATTENDING', payload: this.props.match.params.id });
         }
     }
 
     getDetails = () => {
         this.props.dispatch({ type: "GET_SINGLE_EVENT", payload: this.props.match.params.id })
         this.props.dispatch({ type: 'GET_LIST', payload: this.props.match.params.id })
-        this.props.dispatch({ type: 'GET_ATTENDING', payload: this.props.match.params.id});
+        this.props.dispatch({ type: 'GET_ATTENDING', payload: this.props.match.params.id });
     }
 
     setDetails = () => {
@@ -85,7 +87,6 @@ class EventPage extends Component {
                         lng: lng
                     }
                 });
-                console.log(this.state.location)
             },
                 error => {
                     console.error(error);
@@ -105,9 +106,9 @@ class EventPage extends Component {
         }
     }
 
-    handelChange = (e, propertyName)=>{
+    handelChange = (e, propertyName) => {
         this.setState({
-            attending:{
+            attending: {
                 ...this.state.attending,
                 [propertyName]: e.target.value
 
@@ -115,9 +116,9 @@ class EventPage extends Component {
         })
     }
 
-    rsvpBtn = ()=>{
+    rsvpBtn = () => {
         console.log(this.state.eventID)
-        this.props.dispatch({type:'ADD_ATTENDING', payload: {id: this.props.match.params.id, person: this.state.attending}})
+        this.props.dispatch({ type: 'ADD_ATTENDING', payload: { id: this.props.match.params.id, person: this.state.attending } })
         this.getDetails();
         this.setState({
             attending: {
@@ -127,14 +128,14 @@ class EventPage extends Component {
         })
     }
 
-    deletePerson = (id)=>{
-        this.props.dispatch({type: "DELETE_ATTENDING", payload: id});
+    deletePerson = (id) => {
+        this.props.dispatch({ type: "DELETE_ATTENDING", payload: id });
         this.getDetails();
     }
 
     render() {
         return (
-            <>
+            <div className="container">
                 {this.props.reduxState.singleEvent.map((event) => {
                     return (
                         <div key={event.id}>
@@ -145,102 +146,118 @@ class EventPage extends Component {
                 })}
                 <div>
                     <h3>Invited List:</h3>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.props.reduxState.list.map((person) => {
-                                return (
-                                    <tr key={person.id}>
-                                        <td>{person.name}</td>
-                                        <td>{person.email}</td>
-                                    </tr>
-                                )
-                            })}
-                        </tbody>
-                    </table>
+                    <div className="table2">
+                        <Table>
+                            <Table.Header>
+                                <Table.Row>
+                                    <Table.HeaderCell>Name</Table.HeaderCell>
+                                    <Table.HeaderCell>Email</Table.HeaderCell>
+                                </Table.Row>
+                            </Table.Header>
+                            <Table.Body>
+                                {this.props.reduxState.list.map((person) => {
+                                    return (
+                                        <Table.Row key={person.id}>
+                                            <Table.Cell width="10">{person.name}</Table.Cell>
+                                            <Table.Cell width="16">{person.email}</Table.Cell>
+                                        </Table.Row>
+                                    )
+                                })}
+                            </Table.Body>
+                        </Table>
+                    </div>
                 </div>
-                <div>
+                <div className="attending">
                     <h3>Are you able to make it?</h3>
-                    <label>Name:</label>
-                    <input value={this.state.attending.name} onChange={(e)=> this.handelChange(e,'name')}/>
-                    <br/>
-                    <label>Bringing</label>
-                    <input value={this.state.attending.bringing} onChange={(e)=> this.handelChange(e,'bringing')}/>
-                    <br/>
-                    <button onClick={this.rsvpBtn}>RSVP</button>
+                    <Label>Name:</Label>
+                    <Input value={this.state.attending.name} onChange={(e) => this.handelChange(e, 'name')} />
+                    <br />
+                    <Label>Bringing</Label>
+                    <Input value={this.state.attending.bringing} onChange={(e) => this.handelChange(e, 'bringing')} />
+                    <br />
+                    <Button onClick={this.rsvpBtn}>RSVP</Button>
                     <h3>Attending:</h3>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Bringing</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {this.props.reduxState.attendingList.map((person)=>{
-                                return(
-                                    <tr key={person.id}>
-                                        <td>{person.name}</td>
-                                        <td>{person.item}</td>
-                                        <td><button onClick={() => this.deletePerson(person.id)}>Delete</button></td>
-                                    </tr>
-                                )
-                            })}
-                        </tbody>
-                    </table>
+                    <div className="table">
+                        <Table >
+                            <Table.Header>
+                                <Table.Row>
+                                    <Table.HeaderCell width="2">Name</Table.HeaderCell>
+                                    <Table.HeaderCell width="2">Bringing</Table.HeaderCell>
+                                    <Table.HeaderCell width="2"></Table.HeaderCell>
+                                </Table.Row>
+                            </Table.Header>
+                            <Table.Body>
+                                {this.props.reduxState.attendingList.map((person) => {
+                                    return (
+                                        <Table.Row key={person.id}>
+                                            <Table.Cell width="2">{person.name}</Table.Cell>
+                                            <Table.Cell width="2">{person.item}</Table.Cell>
+                                            <Table.Cell width="2"><Button onClick={() => this.deletePerson(person.id)}>Delete</Button></Table.Cell>
+                                        </Table.Row>
+                                    )
+                                })}
+                            </Table.Body>
+                        </Table>
+                    </div>
                 </div>
-                {this.props.reduxState.singleEvent.map((event) => {
-                    return (
-                        <div key={event.id}>
-                            <p>{event.street}</p>
-                            <p>{event.apt}</p>
-                            <p>{event.city}</p>
-                            <p>{event.state}</p>
-                            <p>{event.zip_code}</p>
-                        </div>
-                    )
-                })}
-                <LoadScript
-                    id="script-loader"
-                    googleMapsApiKey={process.env.REACT_APP_API_KEY}
-                    onLoad={this.setDetails}
-                >
-                    <GoogleMap
-                        className="example-map"
-                        mapContainerStyle={{
-                            height: "300px",
-                            width: "300px"
-                        }}
-                        zoom={15}
-                        center={{
-                            lat: this.state.location.lat,
-                            lng: this.state.location.lng
-                        }}
-                    >
-                        <Marker
-                            position={{
-                                lat: this.state.location.lat,
-                                lng: this.state.location.lng
-                            }}
-                        >
-                        </Marker>
-                    </GoogleMap>
-                </LoadScript>
-                {this.props.reduxState.user.id === this.state.hostid?
-                <>
-                <button onClick={this.editBtn}>Edit</button>
-                <button onClick={() => this.deleteBtn()}>Delete</button>
-                </>
-                :
-                ''
-                }
-                
-            </>
+                <div className="address_map">
+                    <Grid stackable relaxed divided='vertically' columns='2'>
+                        <Grid.Row>
+                            <Grid.Column>
+                                <LoadScript
+                                    id="script-loader"
+                                    onLoad={this.setDetails}
+                                    googleMapsApiKey={process.env.REACT_APP_API_KEY}
+                                >
+                                    <GoogleMap
+                                        className="example-map"
+                                        mapContainerStyle={{
+                                            height: "300px",
+                                            width: "300px"
+                                        }}
+                                        zoom={15}
+                                        center={{
+                                            lat: this.state.location.lat,
+                                            lng: this.state.location.lng
+                                        }}
+                                    >
+                                        <Marker
+                                            position={{
+                                                lat: this.state.location.lat,
+                                                lng: this.state.location.lng
+                                            }}
+                                        >
+                                        </Marker>
+                                    </GoogleMap>
+                                </LoadScript>
+                            </Grid.Column>
+                            <Grid.Column>
+                                {this.props.reduxState.singleEvent.map((event) => {
+                                    return (
+                                        <div key={event.id}>
+                                            <p>{event.street} {event.apt}</p>
+                                            <p>{event.city},{event.state}</p>
+                                            <p>{event.zip_code}</p>
+                                        </div>
+                                    )
+                                })}
+                            </Grid.Column>
+
+                        </Grid.Row>
+                    </Grid>
+                </div>   
+                                 
+                <div className="buttons">
+                    {this.props.reduxState.user.id === this.state.hostid ?
+                        <>
+                            <Button onClick={this.editBtn}>Edit</Button>
+                            <Button onClick={() => this.deleteBtn()}>Delete</Button>
+                        </>
+                        :
+                        ''
+                    }
+                </div>
+            </div>
         )
     }
 }

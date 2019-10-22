@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
 import "./AddEvent.css"
+import {Input, Button, Checkbox, TextArea} from 'semantic-ui-react';
 
 class AddEvent extends Component {
     state = {
@@ -106,15 +107,15 @@ class AddEvent extends Component {
                 <div className="eventDetails">
                     <h1><span onClick={this.setEvent}>Add</span> Event</h1>
                     <h4>Event Name</h4>
-                    <input value={this.state.event.eventName} onChange={(e) => this.handelChange(e, "eventName")} />
+                    <Input value={this.state.event.eventName} onChange={(e) => this.handelChange(e, "eventName")} />
                     <h4>Description</h4>
-                    <textarea value={this.state.event.description} rows="5" onChange={(e) => this.handelChange(e, "description")} />
+                    <TextArea rows="5" value={this.state.event.description} onChange={(e) => this.handelChange(e, "description")} />
                     <h4>Add Guests</h4>
-                    <input value={this.state.addGuestList.name} onChange={(e) => { this.addGuestToList(e, "name") }} />
+                    <Input label="Name" value={this.state.addGuestList.name} onChange={(e) => { this.addGuestToList(e, "name") }} />
                     <br />
-                    <input value={this.state.addGuestList.email} onChange={(e) => { this.addGuestToList(e, "email") }} />
+                    <Input label="Email" value={this.state.addGuestList.email} onChange={(e) => { this.addGuestToList(e, "email") }} />
                     <br />
-                    <button onClick={this.addGuest}>Add Guest</button>
+                    <Button onClick={this.addGuest}>Add Guest</Button>
                 </div>
                 <div className="guestList">
                     <h4>Guests:</h4>
@@ -138,26 +139,20 @@ class AddEvent extends Component {
                     </table>
                 </div>
                 <div className="address">
-                    <h4>Address:</h4>
-                    <label>Street:</label>
-                    <input value={this.state.event.street} onChange={(e) => this.handelChange(e, "street")} />
+                    <h4>Address:</h4>                    <Input label="Street" value={this.state.event.street} onChange={(e) => this.handelChange(e, "street")} />
                     <br />
-                    <label>Apt:</label>
-                    <input value={this.state.event.apt} onChange={(e) => this.handelChange(e, "apt")} />
+                    <Input label="Apt" value={this.state.event.apt} onChange={(e) => this.handelChange(e, "apt")} />
                     <br />
-                    <label>City:</label>
-                    <input value={this.state.event.city} onChange={(e) => this.handelChange(e, "city")} />
+                    <Input label="City" value={this.state.event.city} onChange={(e) => this.handelChange(e, "city")} />
                     <br />
-                    <label>State:</label>
-                    <input value={this.state.event.state} onChange={(e) => this.handelChange(e, "state")} />
+                    <Input label="State" value={this.state.event.state} onChange={(e) => this.handelChange(e, "state")} />
                     <br />
-                    <label>Zip Code:</label>
-                    <input value={this.state.event.zip} onChange={(e) => this.handelChange(e, "zip")} />
+                    <Input label="Zip Code" value={this.state.event.zip} onChange={(e) => this.handelChange(e, "zip")} />
                 </div>
                 <br />
-                <input type="checkbox" onClick={this.makePublic} /><label>Make Public</label>
+                <Checkbox label="Make Public" type="checkbox" onClick={this.makePublic} />
                 <br />
-                <button onClick={this.handelAddEvent}>Add Event</button>
+                <Button onClick={this.handelAddEvent}>Add Event</Button>
             </div>
         )
     }
