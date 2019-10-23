@@ -28,7 +28,7 @@ router.post('/addevent', (req, res) => {
 })
 
 router.get('/private/:id', (req, res) => {
-    const qureyText = `SELECT * FROM "event" WHERE "event".host_id = $1;`;
+    const qureyText = `SELECT * FROM "event" WHERE "event".host_id = $1 ORDER BY "id" ASC;`;
     pool.query(qureyText, [req.params.id])
         .then((result) => {
             res.send(result.rows)
@@ -91,7 +91,7 @@ router.delete('/:id', (req, res) => {
 })
 
 router.get('/public', (req, res) => {
-    const qureyText = `SELECT * FROM "event" WHERE "public" = 'TRUE'`;
+    const qureyText = `SELECT * FROM "event" WHERE "public" = 'TRUE' ORDER BY "id" ASC`;
     pool.query(qureyText)
         .then((result) => {
             res.send(result.rows)

@@ -8,14 +8,14 @@ import name from '../Logo/logo-name.png'
 
 const Nav = (props) => (
   <div className="nav">
-    {/* Always show this link since the about page is not protected */}
-    <Link className="nav-link" to="/public">
-      Public
-      </Link>
-    <div className="nav-right">
-      <div className="nav-middle">
-    <img className="headder-logo" src={name} alt="name" />
+    <div className="nav-logo">
+      <img className="headder-logo" src={name} alt="name" />
     </div>
+    {/* Always show this link since the about page is not protected */}
+    <div className="nav-right">
+      <Link className="nav-link" to="/public">
+        Public
+      </Link>
       {/* Show the link to the info page and the logout button if the user is logged in */}
       {props.user.id && (
         <>

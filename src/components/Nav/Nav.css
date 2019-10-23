@@ -16,7 +16,7 @@
   color: #f2f2f2;
   background-color: #023C40;
   text-align: center;
-  padding: 24px 10px;
+  padding: 27px 10px;
   text-decoration: none;
   font-size: 15px;
 
@@ -34,14 +34,12 @@
 .nav-right {
   float: right;
 }
-.nav-middle{
+.nav-logo{
   display: inline-block;
-  float: left;
-  margin: auto
 }
 
 .headder-logo {
-    height: 300px;
-    margin: -120px 0;
-    margin-right: 18vw;
+  height: 300px;
+  margin-top: -110px;
+  margin-bottom: -120px;
 }

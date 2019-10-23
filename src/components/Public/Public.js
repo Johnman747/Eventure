@@ -5,10 +5,6 @@ import { Button, Card, Grid } from 'semantic-ui-react';
 import './Public.css'
 import logo from '../Logo/Eventure-1.png'
 
-// This is one of our simplest components
-// It doesn't have local state, so it can be a function component.
-// It doesn't dispatch any redux actions or display any part of redux state
-// or even care what the redux state is, so it doesn't need 'connect()'
 
 class Public extends Component {
   componentDidMount() {
@@ -33,12 +29,12 @@ class Public extends Component {
   render() {
     return (
       <div>
-        <div className="imgHeadder">
+        <div className="imgHeadder" >
         <img className="EventListPage" src={logo} alt="logo" />
         </div>
         <div className="headder">
           <h1>
-            Public Events
+            Check out events in your area
         </h1>
         </div>
         <div className="eventPage">
@@ -50,6 +46,7 @@ class Public extends Component {
                     <Card fluid >
                       <Card.Content >
                         <Card.Header>{event.event_name}</Card.Header>
+                        <Card.Meta>{event.city}, {event.state}</Card.Meta>
                         <Card.Description>{event.description}</Card.Description>
                       </Card.Content>
                       <Card.Content extra textAlign="center">
