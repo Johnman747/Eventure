@@ -36,6 +36,7 @@ class PublicEventPage extends Component {
     }
 
     setDetails = () => {
+        
         this.props.reduxState.singleEvent.forEach((event) => {
             this.setState({
                 newLocation: {
@@ -140,6 +141,7 @@ class PublicEventPage extends Component {
                                     </GoogleMap>
                                 </LoadScript>
                             </Grid.Column>
+                            <div className='address'>
                             <Grid.Column>
                                 {this.props.reduxState.singleEvent.map((event) => {
                                     return (
@@ -151,6 +153,7 @@ class PublicEventPage extends Component {
                                     )
                                 })}
                             </Grid.Column>
+                            </div>
                         </Grid.Row>
                     </Grid>
                 </div>

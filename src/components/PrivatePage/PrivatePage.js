@@ -40,6 +40,7 @@ class PrivatePage extends Component {
                 <Card fluid >
                   <Card.Content >
                     <Card.Header>{event.event_name}</Card.Header>
+                    <Card.Meta>{event.city}, {event.state}</Card.Meta>
                     <Card.Description>{event.description}</Card.Description>
                   </Card.Content>
                   <Card.Content extra textAlign="center">

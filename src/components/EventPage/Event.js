@@ -35,6 +35,9 @@ class EventPage extends Component {
         if (this.props.reduxState.attendingList.length !== preProps.reduxState.attendingList.length) {
             this.props.dispatch({ type: 'GET_ATTENDING', payload: this.props.match.params.id });
         }
+        if (this.props.reduxState.singleEvent !== preProps.reduxState.singleEvent) {
+            this.setDetails();
+        }
     }
 
     getDetails = () => {
@@ -150,16 +153,16 @@ class EventPage extends Component {
                         <Table>
                             <Table.Header>
                                 <Table.Row>
-                                    <Table.HeaderCell>Name</Table.HeaderCell>
-                                    <Table.HeaderCell>Email</Table.HeaderCell>
+                                    <Table.HeaderCell width="10">Name</Table.HeaderCell>
+                                    <Table.HeaderCell width="16">Email</Table.HeaderCell>
                                 </Table.Row>
                             </Table.Header>
                             <Table.Body>
                                 {this.props.reduxState.list.map((person) => {
                                     return (
                                         <Table.Row key={person.id}>
-                                            <Table.Cell width="10">{person.name}</Table.Cell>
-                                            <Table.Cell width="16">{person.email}</Table.Cell>
+                                            <Table.Cell >{person.name}</Table.Cell>
+                                            <Table.Cell >{person.email}</Table.Cell>
                                         </Table.Row>
                                     )
                                 })}
@@ -169,11 +172,11 @@ class EventPage extends Component {
                 </div>
                 <div className="attending">
                     <h3>Are you able to make it?</h3>
-                    <Label>Name:</Label>
-                    <Input value={this.state.attending.name} onChange={(e) => this.handelChange(e, 'name')} />
+                    <label className="name_label">Name: </label>
+                    <Input className="name_input" value={this.state.attending.name} onChange={(e) => this.handelChange(e, 'name')} />
                     <br />
-                    <Label>Bringing</Label>
-                    <Input value={this.state.attending.bringing} onChange={(e) => this.handelChange(e, 'bringing')} />
+                    <label>Bringing: </label>
+                    <Input className="name_input" value={this.state.attending.bringing} onChange={(e) => this.handelChange(e, 'bringing')} />
                     <br />
                     <Button onClick={this.rsvpBtn}>RSVP</Button>
                     <h3>Attending:</h3>
@@ -209,44 +212,46 @@ class EventPage extends Component {
                                     onLoad={this.setDetails}
                                     googleMapsApiKey={process.env.REACT_APP_API_KEY}
                                 >
-                                    <GoogleMap
-                                        className="example-map"
-                                        mapContainerStyle={{
-                                            height: "300px",
-                                            width: "300px"
-                                        }}
-                                        zoom={15}
-                                        center={{
-                                            lat: this.state.location.lat,
-                                            lng: this.state.location.lng
-                                        }}
-                                    >
-                                        <Marker
-                                            position={{
+                                    <div className="example-map">
+                                        <GoogleMap
+                                            mapContainerStyle={{
+                                                height: "300px",
+                                                width: "300px"
+                                            }}
+                                            zoom={15}
+                                            center={{
                                                 lat: this.state.location.lat,
                                                 lng: this.state.location.lng
                                             }}
                                         >
-                                        </Marker>
-                                    </GoogleMap>
+                                            <Marker
+                                                position={{
+                                                    lat: this.state.location.lat,
+                                                    lng: this.state.location.lng
+                                                }}
+                                            >
+                                            </Marker>
+                                        </GoogleMap>
+                                    </div>
                                 </LoadScript>
                             </Grid.Column>
-                            <Grid.Column>
-                                {this.props.reduxState.singleEvent.map((event) => {
-                                    return (
-                                        <div key={event.id}>
-                                            <p>{event.street} {event.apt}</p>
-                                            <p>{event.city},{event.state}</p>
-                                            <p>{event.zip_code}</p>
-                                        </div>
-                                    )
-                                })}
-                            </Grid.Column>
-
+                            <div className="address">
+                                <Grid.Column >
+                                    {this.props.reduxState.singleEvent.map((event) => {
+                                        return (
+                                            <div key={event.id}>
+                                                <p>{event.street} {event.apt}</p>
+                                                <p>{event.city},{event.state}</p>
+                                                <p>{event.zip_code}</p>
+                                            </div>
+                                        )
+                                    })}
+                                </Grid.Column>
+                            </div>
                         </Grid.Row>
                     </Grid>
-                </div>   
-                                 
+                </div>
+
                 <div className="buttons">
                     {this.props.reduxState.user.id === this.state.hostid ?
                         <>

@@ -2,7 +2,12 @@
     width: 45%;
     margin: 2% auto;
 }
-
+.example-map{
+    padding: 10px;
+    border: 2px solid rgb(68, 68, 68);
+    background-color: rgb(68, 68, 68);
+    border-radius: 5px;
+}
 .container{
     width: 80%;
     margin: 1% auto;
@@ -10,11 +15,24 @@
 }
 
 .table{
-    width: 40%;
+    width: 30%;
     display: inline-block;
 }
 
 .table2{
-    width: 30%;
+    width: 20%;
     display: inline-block;
+}
+
+.address{
+    padding-top: 100px;
+    padding-left: 50px;
+}
+
+.name_label {
+    margin-right: 15px;
+}
+
+.name_input{
+    margin-bottom: 5px;
 }

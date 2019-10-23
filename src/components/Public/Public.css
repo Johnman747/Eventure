@@ -1,9 +1,12 @@
 .EventListPage{
     height: 400px;
     width: auto;
+    margin: -50px 0;
 }
 
 .imgHeadder{
     background-color: #584e4a;
     text-align: center;
+    color: white;
+    padding-bottom: 10px;
 }
