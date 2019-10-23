@@ -146,9 +146,9 @@ class PublicEventPage extends Component {
                                 {this.props.reduxState.singleEvent.map((event) => {
                                     return (
                                         <div key={event.id}>
-                                            <p>{event.street} {event.apt}</p>
-                                            <p>{event.city},{event.state}</p>
-                                            <p>{event.zip_code}</p>
+                                            <h5>{event.street} {event.apt}</h5>
+                                            <h5>{event.city},{event.state}</h5>
+                                            <h5>{event.zip_code}</h5>
                                         </div>
                                     )
                                 })}

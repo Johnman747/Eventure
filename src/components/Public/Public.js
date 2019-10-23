@@ -32,7 +32,7 @@ class Public extends Component {
         <div className="imgHeadder" >
           <h1>Welcome to</h1>
         <img className="EventListPage" src={logo} alt="logo" />
-        <h2>Your one stop for all your party planning needs.</h2>
+        <h2>The one stop for your party planning needs</h2>
         </div>
         <div className="headder">
           <h1>

@@ -3,7 +3,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import GeoCode from "react-geocode"
-import { Table, Button, Input, Label, Grid } from 'semantic-ui-react';
+import { Button, Input, Grid } from 'semantic-ui-react';
+import {Table, TableRow, TableBody, TableCell, TableHead} from "@material-ui/core";
 import './Event.css'
 
 class EventPage extends Component {
@@ -151,22 +152,22 @@ class EventPage extends Component {
                     <h3>Invited List:</h3>
                     <div className="table2">
                         <Table>
-                            <Table.Header>
-                                <Table.Row>
-                                    <Table.HeaderCell width="10">Name</Table.HeaderCell>
-                                    <Table.HeaderCell width="16">Email</Table.HeaderCell>
-                                </Table.Row>
-                            </Table.Header>
-                            <Table.Body>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell >Name</TableCell>
+                                    <TableCell >Email</TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
                                 {this.props.reduxState.list.map((person) => {
                                     return (
-                                        <Table.Row key={person.id}>
-                                            <Table.Cell >{person.name}</Table.Cell>
-                                            <Table.Cell >{person.email}</Table.Cell>
-                                        </Table.Row>
+                                        <TableRow key={person.id}>
+                                            <TableCell >{person.name}</TableCell>
+                                            <TableCell >{person.email}</TableCell>
+                                        </TableRow>
                                     )
                                 })}
-                            </Table.Body>
+                            </TableBody>
                         </Table>
                     </div>
                 </div>
@@ -182,24 +183,24 @@ class EventPage extends Component {
                     <h3>Attending:</h3>
                     <div className="table">
                         <Table >
-                            <Table.Header>
-                                <Table.Row>
-                                    <Table.HeaderCell width="2">Name</Table.HeaderCell>
-                                    <Table.HeaderCell width="2">Bringing</Table.HeaderCell>
-                                    <Table.HeaderCell width="2"></Table.HeaderCell>
-                                </Table.Row>
-                            </Table.Header>
-                            <Table.Body>
+                            <TableHead>
+                                <TableRow>
+                                    <TableCell width="2">Name</TableCell>
+                                    <TableCell width="2">Bringing</TableCell>
+                                    <TableCell width="2"></TableCell>
+                                </TableRow>
+                            </TableHead>
+                            <TableBody>
                                 {this.props.reduxState.attendingList.map((person) => {
                                     return (
-                                        <Table.Row key={person.id}>
-                                            <Table.Cell width="2">{person.name}</Table.Cell>
-                                            <Table.Cell width="2">{person.item}</Table.Cell>
-                                            <Table.Cell width="2"><Button onClick={() => this.deletePerson(person.id)}>Delete</Button></Table.Cell>
-                                        </Table.Row>
+                                        <TableRow key={person.id}>
+                                            <TableCell width="2">{person.name}</TableCell>
+                                            <TableCell width="2">{person.item}</TableCell>
+                                            <TableCell width="2"><Button onClick={() => this.deletePerson(person.id)}>Delete</Button></TableCell>
+                                        </TableRow>
                                     )
                                 })}
-                            </Table.Body>
+                            </TableBody>
                         </Table>
                     </div>
                 </div>
@@ -240,9 +241,9 @@ class EventPage extends Component {
                                     {this.props.reduxState.singleEvent.map((event) => {
                                         return (
                                             <div key={event.id}>
-                                                <p>{event.street} {event.apt}</p>
-                                                <p>{event.city},{event.state}</p>
-                                                <p>{event.zip_code}</p>
+                                                <h5>{event.street} {event.apt}</h5>
+                                                <h5>{event.city},{event.state}</h5>
+                                                <h5>{event.zip_code}</h5>
                                             </div>
                                         )
                                     })}

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
 import {Input, TextArea, Button} from 'semantic-ui-react';
+import {Table, TableBody, TableCell, TableHead, TableRow} from '@material-ui/core';
 
 class EditEvent extends Component {
     state = {
@@ -140,25 +141,26 @@ class EditEvent extends Component {
                 <br/>
                 <div className="guestList">
                     <h3>Invited List:</h3>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Name</th>
-                                <th>Email</th>
-                            </tr>
-                        </thead>
-                        <tbody>
+                    <Table>
+                        <TableHead>
+                            <TableRow>
+                                <TableCell>Name</TableCell>
+                                <TableCell>Email</TableCell>
+                                <TableCell></TableCell>
+                            </TableRow>
+                        </TableHead>
+                        <TableBody>
                             {this.props.reduxState.list.map((person) => {
                                 return (
-                                    <tr key={person.id}>
-                                        <td>{person.name}</td>
-                                        <td>{person.email}</td>
-                                        <td><Button onClick={() => this.deletePerson(person.id)}>Delete</Button></td>
-                                    </tr>
+                                    <TableRow key={person.id}>
+                                        <TableCell>{person.name}</TableCell>
+                                        <TableCell>{person.email}</TableCell>
+                                        <TableCell><Button onClick={() => this.deletePerson(person.id)}>Delete</Button></TableCell>
+                                    </TableRow>
                                 )
                             })}
-                        </tbody>
-                    </table>
+                        </TableBody>
+                    </Table>
                 </div>
                 <div className="address">
                     <h4>Address</h4>
