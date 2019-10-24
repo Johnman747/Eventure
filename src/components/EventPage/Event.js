@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
 import { GoogleMap, LoadScript, Marker } from '@react-google-maps/api';
 import GeoCode from "react-geocode"
-import { Button, Input, Grid } from 'semantic-ui-react';
-import {Table, TableRow, TableBody, TableCell, TableHead} from "@material-ui/core";
+import { Button, Input, Grid, Header, Modal, Icon } from 'semantic-ui-react';
+import { Table, TableRow, TableBody, TableCell, TableHead } from "@material-ui/core";
 import './Event.css'
 
 class EventPage extends Component {
@@ -102,8 +102,8 @@ class EventPage extends Component {
         this.props.history.push(`/editevent/${this.props.match.params.id}`)
     }
 
-    deleteBtn = () => {
-        if (window.confirm("Are you sure you want to delete?")) {
+    deleteBtn = (boolean) => {
+        if (boolean) {
             this.props.dispatch({ type: "DELETE_EVENT", payload: this.state.eventID })
             this.props.dispatch({ type: 'GET_EVENTS', payload: this.props.reduxState.user.id });
             this.props.history.push('/private');
@@ -257,12 +257,25 @@ class EventPage extends Component {
                     {this.props.reduxState.user.id === this.state.hostid ?
                         <>
                             <Button onClick={this.editBtn}>Edit</Button>
-                            <Button onClick={() => this.deleteBtn()}>Delete</Button>
+                            <Modal trigger={<Button>Delete</Button>} size="small" basic closeIcon>
+                                <Header content="Delete?" />
+                                <Modal.Content>
+                                    <p>
+                                        Are you sure you want to delete?
+                                    </p>
+                                </Modal.Content>
+                                <Modal.Actions>
+                                    <Button onClick={() => this.deleteBtn(true)} basic color="green" >
+                                        <Icon name="checkmark" inverted/> Yes
+                                    </Button>
+                                </Modal.Actions>
+                            </Modal>
                         </>
                         :
                         ''
                     }
                 </div>
+
             </div>
         )
     }
