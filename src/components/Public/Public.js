@@ -59,7 +59,7 @@ class Public extends Component {
                       this.props.reduxState.user.admin_level === 1 ?
                         <>
                           <Button onClick={() => this.handelEdit(event.id)} color="teal">Edit</Button>
-                          <Modal trigger={<Button>Delete</Button>} basic closeIcon>
+                          <Modal trigger={<Button color="red">Delete</Button>} basic closeIcon>
                             <Header content="Delete?" />
                             <Modal.Content>
                               <p>

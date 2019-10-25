@@ -107,7 +107,7 @@ class EditEvent extends Component {
                     <Input className="zip" label="Zip Code" value={this.state.event.zip} onChange={(e) => this.handelChange(e, "zip")} />
                 </div>
                 <br />
-                <Button onClick={this.handelUpdateEvent}>Update Event</Button>
+                <Button onClick={this.handelUpdateEvent} color="blue">Update Event</Button>
             </div>
         )
     }
