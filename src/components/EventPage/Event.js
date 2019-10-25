@@ -35,7 +35,7 @@ class EventPage extends Component {
     componentDidUpdate(preProps) {
         if (this.props.reduxState.attendingList.length !== preProps.reduxState.attendingList.length) {
             this.props.dispatch({ type: 'GET_ATTENDING', payload: this.props.match.params.id });
-            this.setState({state: this.state})
+            this.setState({ state: this.state })
         }
         if (this.props.reduxState.singleEvent !== preProps.reduxState.singleEvent) {
             this.setDetails();
@@ -211,11 +211,12 @@ class EventPage extends Component {
                             <Grid.Column>
                                 <LoadScript
                                     id="script-loader"
-                                    onLoad={this.setDetails}
                                     googleMapsApiKey={process.env.REACT_APP_API_KEY}
+                                // onLoad={this.setDetails}
                                 >
                                     <div className="example-map">
                                         <GoogleMap
+                                            onLoad={this.setDetails}
                                             mapContainerStyle={{
                                                 height: "300px",
                                                 width: "300px"
@@ -267,7 +268,7 @@ class EventPage extends Component {
                                 </Modal.Content>
                                 <Modal.Actions>
                                     <Button onClick={() => this.deleteBtn(true)} basic color="green" >
-                                        <Icon name="checkmark" inverted/> Yes
+                                        <Icon name="checkmark" inverted /> Yes
                                     </Button>
                                 </Modal.Actions>
                             </Modal>

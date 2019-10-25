@@ -117,10 +117,14 @@ class PublicEventPage extends Component {
                                 <LoadScript
                                     id="script-loader"
                                     googleMapsApiKey={process.env.REACT_APP_API_KEY}
-                                    onLoad={this.setDetails}
+                                    // onLoad={this.setDetails}
+                                    // onError={this.setDetails}
+                                    
                                 >
                                     <GoogleMap
                                         className="example-map"
+                                        onError={this.setDetails}
+                                        onLoad={this.setDetails}
                                         mapContainerStyle={{
                                             height: "300px",
                                             width: "300px"
