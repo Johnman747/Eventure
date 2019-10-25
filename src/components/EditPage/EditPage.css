@@ -1,0 +1,10 @@
+.guestListEdit{
+    display: inline-block;
+    width: 30vw;
+    text-align: center;
+    margin: 40px;
+}
+
+.invitedList{
+    margin-left: 15%;
+}

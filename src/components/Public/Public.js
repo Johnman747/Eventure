@@ -52,13 +52,13 @@ class Public extends Component {
                         <Card.Description>{event.description}</Card.Description>
                       </Card.Content>
                       <Card.Content extra textAlign="center">
-                        <Button onClick={() => this.publicEventPage(event.id)} >More Info</Button>
+                        <Button onClick={() => this.publicEventPage(event.id)} color="orange">More Info</Button>
                       </Card.Content>
                     </Card>
                     {
                       this.props.reduxState.user.admin_level === 1 ?
                         <>
-                          <Button onClick={() => this.handelEdit(event.id)}>Edit</Button>
+                          <Button onClick={() => this.handelEdit(event.id)} color="teal">Edit</Button>
                           <Modal trigger={<Button>Delete</Button>} basic closeIcon>
                             <Header content="Delete?" />
                             <Modal.Content>

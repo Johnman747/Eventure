@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom'
 import {Input, TextArea, Button} from 'semantic-ui-react';
 import {Table, TableBody, TableCell, TableHead, TableRow} from '@material-ui/core';
+import './EditPage.css'
 
 class EditEvent extends Component {
     state = {
@@ -32,9 +33,11 @@ class EditEvent extends Component {
     componentDidUpdate(preProps) {
         if (this.props.reduxState.singleEvent !== preProps.reduxState.singleEvent) {
             this.getDetails()
+            this.setState({state: this.state})
         }
         if (this.props.reduxState.list.length !== preProps.reduxState.list.length) {
-            this.fetchDetails()
+            this.fetchDetails();
+            this.setState({state: this.state});
         }
     }
 
@@ -136,11 +139,11 @@ class EditEvent extends Component {
                     <br />
                     <Input value={this.state.addGuestList.email} onChange={(e) => this.addGuestToList(e, "email")} />
                     <br />
-                    <Button onClick={this.addGuest}>Add Guest</Button>
+                    <Button onClick={this.addGuest} color="purple">Add Guest</Button>
                 </div>
                 <br/>
-                <div className="guestList">
-                    <h3>Invited List:</h3>
+                <div className="guestListEdit">
+                    <h3 className="invitedList">Invited List:</h3>
                     <Table>
                         <TableHead>
                             <TableRow>
@@ -155,7 +158,7 @@ class EditEvent extends Component {
                                     <TableRow key={person.id}>
                                         <TableCell>{person.name}</TableCell>
                                         <TableCell>{person.email}</TableCell>
-                                        <TableCell><Button onClick={() => this.deletePerson(person.id)}>Delete</Button></TableCell>
+                                        <TableCell><Button onClick={() => this.deletePerson(person.id)} color="red">Delete</Button></TableCell>
                                     </TableRow>
                                 )
                             })}
@@ -175,7 +178,7 @@ class EditEvent extends Component {
                     <Input className="zip" label="Zip Code" value={this.state.event.zip} onChange={(e) => this.handelChange(e, "zip")} />
                 </div>
                 <br />
-                <Button onClick={this.handelUpdateEvent}>Update Event</Button>
+                <Button onClick={this.handelUpdateEvent} color="blue">Update Event</Button>
             </div>
         )
     }

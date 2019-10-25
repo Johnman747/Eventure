@@ -3,6 +3,8 @@
     margin: 2% auto;
 }
 .example-map{
+    height: 325px;
+    width: 325px;
     padding: 10px;
     border: 2px solid rgb(68, 68, 68);
     background-color: rgb(68, 68, 68);
@@ -26,7 +28,7 @@
 
 .address{
     padding-top: 100px;
-    padding-left: 50px;
+    padding-left: 100px;
 }
 
 .name_label {

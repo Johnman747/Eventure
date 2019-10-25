@@ -35,6 +35,7 @@ class EventPage extends Component {
     componentDidUpdate(preProps) {
         if (this.props.reduxState.attendingList.length !== preProps.reduxState.attendingList.length) {
             this.props.dispatch({ type: 'GET_ATTENDING', payload: this.props.match.params.id });
+            this.setState({state: this.state})
         }
         if (this.props.reduxState.singleEvent !== preProps.reduxState.singleEvent) {
             this.setDetails();
@@ -179,7 +180,7 @@ class EventPage extends Component {
                     <label>Bringing: </label>
                     <Input className="name_input" value={this.state.attending.bringing} onChange={(e) => this.handelChange(e, 'bringing')} />
                     <br />
-                    <Button onClick={this.rsvpBtn}>RSVP</Button>
+                    <Button onClick={this.rsvpBtn} color="purple">RSVP</Button>
                     <h3>Attending:</h3>
                     <div className="table">
                         <Table >
@@ -196,7 +197,7 @@ class EventPage extends Component {
                                         <TableRow key={person.id}>
                                             <TableCell width="2">{person.name}</TableCell>
                                             <TableCell width="2">{person.item}</TableCell>
-                                            <TableCell width="2"><Button onClick={() => this.deletePerson(person.id)}>Delete</Button></TableCell>
+                                            <TableCell width="2"><Button onClick={() => this.deletePerson(person.id)} color="red">Delete</Button></TableCell>
                                         </TableRow>
                                     )
                                 })}
@@ -256,8 +257,8 @@ class EventPage extends Component {
                 <div className="buttons">
                     {this.props.reduxState.user.id === this.state.hostid ?
                         <>
-                            <Button onClick={this.editBtn}>Edit</Button>
-                            <Modal trigger={<Button>Delete</Button>} size="small" basic closeIcon>
+                            <Button onClick={this.editBtn} color="teal">Edit</Button>
+                            <Modal trigger={<Button color="red">Delete</Button>} size="small" basic closeIcon>
                                 <Header content="Delete?" />
                                 <Modal.Content>
                                     <p>

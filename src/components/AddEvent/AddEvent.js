@@ -22,7 +22,10 @@ class AddEvent extends Component {
             name: '',
             email: ''
         },
-        list: []
+        sendEmail:{
+            host: this.props.user.name,
+            list: [],
+        }
     }
 
     handelChange = (e, propertyName) => {
@@ -64,7 +67,7 @@ class AddEvent extends Component {
         event.preventDefault();
         this.props.dispatch({ type: 'ADD_EVENT', payload: this.state })
         this.props.dispatch({ type: 'GET_EVENTS', payload: this.props.user.id });
-        this.props.dispatch({ type: 'SEND_INVITES', payload: this.state.list });
+        // this.props.dispatch({ type: 'SEND_INVITES', payload: this.state});
         this.setState({
             event: {
                 eventName: '',
@@ -77,7 +80,10 @@ class AddEvent extends Component {
                 zip: '',
                 public: false
             },
-            list: [],
+            sendEmail:{
+                host: this.props.user.name,
+                list: [],
+            }
         })
         this.props.history.push('/private')
         // console.log(this.state.event)
@@ -93,13 +99,18 @@ class AddEvent extends Component {
     }
 
     addGuest = () => {
-        this.state.list.push(this.state.addGuestList);
+        this.state.sendEmail.list.push(this.state.addGuestList);
         this.setState({
             addGuestList: {
                 name: '',
                 email: ''
             }
         })
+    }
+
+    deletePerson = (id)=>{
+        this.state.list.splice(id,1);
+        this.setState({state: this.state});
     }
 
     render() {
@@ -116,7 +127,7 @@ class AddEvent extends Component {
                     <br />
                     <Input label="Email" value={this.state.addGuestList.email} onChange={(e) => { this.addGuestToList(e, "email") }} />
                     <br />
-                    <Button className="guest_button" onClick={this.addGuest}>Add Guest</Button>
+                    <Button className="guest_button" onClick={this.addGuest} color="purple">Add Guest</Button>
                     <br />
                 </div>
                 <h4>Guests:</h4>
@@ -127,14 +138,16 @@ class AddEvent extends Component {
                                     <TableRow>
                                         <TableCell>Name</TableCell>
                                         <TableCell>Email</TableCell>
+                                        <TableCell></TableCell>
                                     </TableRow>
                                 </TableHead>
                                 <TableBody>
-                                    {this.state.list.map((person, i) => {
+                                    {this.state.sendEmail.list.map((person, i) => {
                                         return (
                                             <TableRow key={i}>
                                                 <TableCell >{person.name}</TableCell>
                                                 <TableCell >{person.email}</TableCell>
+                                                <TableCell><Button onClick={()=>this.deletePerson(i)} color="red">Delete</Button></TableCell>
                                             </TableRow>
                                         )
                                     })}
@@ -157,7 +170,7 @@ class AddEvent extends Component {
                 <br />
                 <Checkbox className="add_checkBox" label="Make Public" type="checkbox" onClick={this.makePublic} />
                 <br />
-                <Button onClick={this.handelAddEvent}>Add Event</Button>
+                <Button onClick={this.handelAddEvent} color="blue">Add Event</Button>
             </div>
         )
     }

@@ -44,7 +44,7 @@ class PrivatePage extends Component {
                     <Card.Description>{event.description}</Card.Description>
                   </Card.Content>
                   <Card.Content extra textAlign="center">
-                    <Button onClick={() => this.moveToDetails(event.id)} >More Info</Button>
+                    <Button onClick={() => this.moveToDetails(event.id)} color="orange">More Info</Button>
                   </Card.Content>
                 </Card>
                 </Grid.Column>
