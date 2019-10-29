@@ -9,7 +9,7 @@ class PublicEventPage extends Component {
     state = {
         newLocation: {
             street: '',
-            apt: '',
+            apartment: '',
             city: '',
             state: '',
             zipCode: ''
@@ -36,12 +36,12 @@ class PublicEventPage extends Component {
     }
 
     setDetails = () => {
-        
+
         this.props.reduxState.singleEvent.forEach((event) => {
             this.setState({
                 newLocation: {
                     street: event.street,
-                    apt: event.apt,
+                    apartment: event.apt,
                     city: event.city,
                     state: event.state,
                     zipCode: event.zip_code
@@ -56,10 +56,10 @@ class PublicEventPage extends Component {
 
     getLatAndLng = () => {
         let address;
-        if (this.state.newLocation.apt === '') {
+        if (this.state.newLocation.apartment === '') {
             address = {
                 street: this.state.newLocation.street,
-                apt: '1',
+                apartment: '1',
                 city: this.state.newLocation.city,
                 state: this.state.newLocation.state,
                 zipCode: this.state.newLocation.zipCode
@@ -117,57 +117,59 @@ class PublicEventPage extends Component {
                                 <LoadScript
                                     id="script-loader"
                                     googleMapsApiKey={process.env.REACT_APP_API_KEY}
-                                    // onLoad={this.setDetails}
-                                    // onError={this.setDetails}
-                                    
+                                onLoad={this.setDetails}
+                                // onError={this.setDetails}
+
                                 >
-                                    <GoogleMap
-                                        className="example-map"
-                                        onError={this.setDetails}
-                                        onLoad={this.setDetails}
-                                        mapContainerStyle={{
-                                            height: "300px",
-                                            width: "300px"
-                                        }}
-                                        zoom={15}
-                                        center={{
-                                            lat: this.state.location.lat,
-                                            lng: this.state.location.lng
-                                        }}
-                                    >
-                                        <Marker
-                                            position={{
+                                    <div className="example-map">
+                                        <GoogleMap
+                                            className="example-map"
+                                            onError={this.forceUpdate}
+                                            onLoad={this.setDetails}
+                                            mapContainerStyle={{
+                                                height: "300px",
+                                                width: "300px"
+                                            }}
+                                            zoom={15}
+                                            center={{
                                                 lat: this.state.location.lat,
                                                 lng: this.state.location.lng
                                             }}
                                         >
-                                        </Marker>
-                                    </GoogleMap>
+                                            <Marker
+                                                position={{
+                                                    lat: this.state.location.lat,
+                                                    lng: this.state.location.lng
+                                                }}
+                                            >
+                                            </Marker>
+                                        </GoogleMap>
+                                        </div>
                                 </LoadScript>
                             </Grid.Column>
-                            <div className='address'>
-                            <Grid.Column>
-                                {this.props.reduxState.singleEvent.map((event) => {
-                                    return (
-                                        <div key={event.id}>
-                                            <h5>{event.street} {event.apt}</h5>
-                                            <h5>{event.city},{event.state}</h5>
-                                            <h5>{event.zip_code}</h5>
-                                        </div>
-                                    )
-                                })}
-                            </Grid.Column>
-                            </div>
+                                <div className='address'>
+                                    <Grid.Column>
+                                        {this.props.reduxState.singleEvent.map((event) => {
+                                            return (
+                                                <div key={event.id}>
+                                                    <h5>{event.street} {event.apt}</h5>
+                                                    <h5>{event.city},{event.state}</h5>
+                                                    <h5>{event.zip_code}</h5>
+                                                </div>
+                                            )
+                                        })}
+                                    </Grid.Column>
+                                </div>
                         </Grid.Row>
                     </Grid>
                 </div>
-            </div>
-        )
-    }
-}
-
+                </div>
+                )
+            }
+        }
+        
 const mapReduxStateToProps = (reduxState) => ({
-    reduxState
-});
-
+                    reduxState
+                });
+                
 export default withRouter(connect(mapReduxStateToProps)(PublicEventPage));

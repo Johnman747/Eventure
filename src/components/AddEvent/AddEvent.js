@@ -109,7 +109,7 @@ class AddEvent extends Component {
     }
 
     deletePerson = (id)=>{
-        this.state.list.splice(id,1);
+        this.state.sendEmail.list.splice(id,1);
         this.setState({state: this.state});
     }
 

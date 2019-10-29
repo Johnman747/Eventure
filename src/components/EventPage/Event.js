@@ -11,7 +11,7 @@ class EventPage extends Component {
     state = {
         newLocation: {
             street: '',
-            apt: '',
+            apartment: '',
             city: '',
             state: '',
             zipCode: ''
@@ -53,7 +53,7 @@ class EventPage extends Component {
             this.setState({
                 newLocation: {
                     street: event.street,
-                    apt: event.apt,
+                    apartment: event.apt,
                     city: event.city,
                     state: event.state,
                     zipCode: event.zip_code
@@ -69,10 +69,10 @@ class EventPage extends Component {
 
     getLatAndLng = () => {
         let address;
-        if (this.state.newLocation.apt === '') {
+        if (this.state.newLocation.apartment === '') {
             address = {
                 street: this.state.newLocation.street,
-                apt: '1',
+                apartment: '1',
                 city: this.state.newLocation.city,
                 state: this.state.newLocation.state,
                 zipCode: this.state.newLocation.zipCode
