@@ -109,10 +109,10 @@ Steps to get the development environment running.
 
 ## Screen Shot
 
-[Home-Page](/ScreenShots/HomePage.png)
-[Private-Events](/ScreenShots/PrivatePage.png)
-[Add-Events](/ScreenShots/AddEvents.png)
-[Event-Page](/ScreenShots/EventPage.png)
+[Home-Page](./ScreenShots/HomePage.png)
+[Private-Events](./ScreenShots/PrivatePage.png)
+[Add-Events](./ScreenShots/AddEvents.png)
+[Event-Page](./ScreenShots/EventPage.png)
 
 ## Documentation
 
