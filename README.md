@@ -34,6 +34,16 @@ These instructions will get you a copy of the project up and running on your loc
 
 set up a database called `party-planner` 
 
+create a .env file with the following:
+
+`SERVER_SESSION_SECRET=` Random number
+
+`REACT_APP_API_KEY =` Your Key
+
+`REACT_APP_EMAIL_USER =` Your email
+
+`REACT_APP_EMAIL_PASS = ` Your password
+
 `
 CREATE TABLE "user" (
     "id" SERIAL PRIMARY KEY,
@@ -42,7 +52,8 @@ CREATE TABLE "user" (
     "password" VARCHAR (1000) NOT NULL,
     "admin_level" INT default 3
 );
-
+`
+`
 CREATE TABLE "event" (
 	"id" SERIAL PRIMARY KEY,
 	"event_name" VARCHAR (80) NOT NULL,
@@ -55,21 +66,24 @@ CREATE TABLE "event" (
 	"zip_code" INT NOT NULL,
 	"public" BOOLEAN default false
 );
-
+`
+`
 CREATE TABLE "attending_list" (
 	"id" SERIAL PRIMARY KEY,
 	"event_id" INT REFERENCES "event",
 	"name" VARCHAR (80) NOT NULL,
 	"item" VARCHAR (50) NOT NULL
 );
-
+`
+`
 CREATE TABLE "invited_list" (
 	"id" SERIAL PRIMARY KEY,
 	"event_id" INT REFERENCES "event",
 	"name" VARCHAR (80) NOT NULL,
 	"email" VARCHAR (80) NOT NULL
 );
-
+`
+`
 CREATE TABLE "invited_event" (
 	"id" SERIAL PRIMARY KEY,
 	"event_id" INT REFERENCES "event",
@@ -95,6 +109,10 @@ Steps to get the development environment running.
 
 ## Screen Shot
 
+[Home-Page](/ScreenShots/HomePage.png)
+[Private-Events](/ScreenShots/PrivatePage.png)
+[Add-Events](/ScreenShots/AddEvents.png)
+[Event-Page](/ScreenShots/EventPage.png)
 
 ## Documentation
 
