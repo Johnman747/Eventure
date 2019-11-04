@@ -109,7 +109,7 @@ Steps to get the development environment running.
 
 ## Screen Shot
 
-![Home-Page](ScreenShots/HomePage.png?raw=true)
+![Home-Page](ScreenShots/HomeScreen.png?raw=true)
 ![Private-Events](ScreenShots/PrivatePage.png?raw=true)
 ![Add-Events](ScreenShots/AddEvents.png?raw=true)
 ![Event-Page](ScreenShots/EventPage.png?raw=true)
